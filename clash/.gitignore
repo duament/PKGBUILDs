@@ -1,0 +1,7 @@
+/*
+!/.gitignore
+!/PKGBUILD
+!/clash.conf
+!/clash.service
+!/clash-sysusers.conf
+!/clash-tmpfiles.conf

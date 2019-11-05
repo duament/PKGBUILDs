@@ -1,0 +1,12 @@
+[Unit]
+Description=A rule based proxy in Go.
+After=network.target
+
+[Service]
+Type=simple
+User=clash
+Restart=on-abort
+ExecStart=/usr/bin/clash -d /var/lib/clash
+
+[Install]
+WantedBy=multi-user.target

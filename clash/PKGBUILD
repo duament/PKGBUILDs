@@ -1,0 +1,34 @@
+
+pkgname=clash
+pkgver=0.16.0
+pkgrel=1
+pkgdesc="A rule based proxy in Go."
+arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
+url="https://github.com/Dreamacro/clash"
+license=('MIT')
+makedepends=('go' 'git')
+depends=()
+source=("clash.conf"
+        "clash.service"
+        "clash-sysusers.conf"
+        "clash-tmpfiles.conf"
+        "$pkgname-$pkgver.tar.gz::https://github.com/Dreamacro/clash/archive/v$pkgver.tar.gz")
+sha256sums=('43bcfd9ebe94f8ea58254af74c5191ef39907b8a4ea1c335af8f9b3a4c3024a3'
+            'e93e9d38b3565d09278a603bd01abf3fc04ede62af133e1aaa8b779e551088f6'
+            '2397c16eeb48a4992ee3a880369a8b53dfdb0c0d657438e4eff49a8e1efc52f3'
+            '528d683f8c68c477cae6c0e135f7d208d36cbafd433fd5c805e225ec3480f275'
+            '6995e9058e7b054dd714d7c551e759798051c18b4e87ed8d31f400350a7e2f11')
+
+build() {
+    cd $pkgname-$pkgver
+    go build .
+}
+
+package() {
+    install -Dm755 $pkgname-$pkgver/$pkgname "$pkgdir/usr/bin/$pkgname"
+    install -Dm644 $pkgname.conf "$pkgdir/etc/$pkgname.conf"
+    install -Dm644 $pkgname.service "$pkgdir/usr/lib/systemd/system/$pkgname.service"
+    install -Dm644 $pkgname-sysusers.conf "$pkgdir/usr/lib/sysusers.d/$pkgname.conf"
+    install -Dm644 $pkgname-tmpfiles.conf "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
+}
+
