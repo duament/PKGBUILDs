@@ -7,14 +7,17 @@ arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
 url="https://github.com/Dreamacro/clash"
 license=('MIT')
 makedepends=('go' 'git')
+install=${pkgname}.install
 depends=()
 source=("clash.conf"
         "clash.service"
+        "clash.install"
         "clash-sysusers.conf"
         "clash-tmpfiles.conf"
         "$pkgname-$pkgver.tar.gz::https://github.com/Dreamacro/clash/archive/v$pkgver.tar.gz")
 sha256sums=('43bcfd9ebe94f8ea58254af74c5191ef39907b8a4ea1c335af8f9b3a4c3024a3'
-            'e93e9d38b3565d09278a603bd01abf3fc04ede62af133e1aaa8b779e551088f6'
+            'b8c750016501db48c2caacfb17ab1b558294b8d76f51c46a9071dc6d646ba569'
+	    'c3407e0e01d39ca769b104a32645464c366da16d2d935f699ca621b6a55802cb'
             '2397c16eeb48a4992ee3a880369a8b53dfdb0c0d657438e4eff49a8e1efc52f3'
             '528d683f8c68c477cae6c0e135f7d208d36cbafd433fd5c805e225ec3480f275'
             '6995e9058e7b054dd714d7c551e759798051c18b4e87ed8d31f400350a7e2f11')
