@@ -1,0 +1,28 @@
+diff --git a/src/components/Root.css b/src/components/Root.css
+index 3622d57..4fbfef7 100644
+--- a/src/components/Root.css
++++ b/src/components/Root.css
+@@ -2,9 +2,7 @@
+   font-family: 'Roboto Mono';
+   font-style: normal;
+   font-weight: 400;
+-  src: local('Roboto Mono'), local('RobotoMono-Regular'),
+-    url('https://cdn.jsdelivr.net/npm/@hsjs/fonts@0.0.1/robotomono/v5/L0x5DF4xlVMF-BfR8bXMIjhLq3-cXbKD.woff2')
+-      format('woff2');
++  src: local('Roboto Mono'), local('RobotoMono-Regular');
+   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+     U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+     U+FEFF, U+FFFD;
+diff --git a/src/index.template.ejs b/src/index.template.ejs
+index 6d5e5dc..74a5567 100644
+--- a/src/index.template.ejs
++++ b/src/index.template.ejs
+@@ -11,7 +11,7 @@
+   <meta name="description" content="Yet Another Clash Dashboard">
+   <meta name="theme-color" content="#202020">
+   <title><%= htmlWebpackPlugin.options.title %></title>
+-  <link href="https://fonts.loli.net/css?family=Merriweather+Sans:400,700|Roboto+Mono&display=swap" rel="stylesheet">
++  <!-- <link href="https://fonts.loli.net/css?family=Merriweather+Sans:400,700|Roboto+Mono&display=swap" rel="stylesheet"> -->
+   <!-- <link rel="prefetch" href="https://cdn.jsdelivr.net/npm/@hsjs/fonts@0.0.1/robotomono/v5/L0x5DF4xlVMF-BfR8bXMIjhLq3-cXbKD.woff2"> -->
+   <!-- <link rel="prefetch" href="https://fonts.loli.net/css?family=Merriweather+Sans:400,700&display=swap" rel="stylesheet"> -->
+   <meta property="og:image" content="https://user-images.githubusercontent.com/1166872/47304841-536f3d80-d65a-11e8-8908-1917127dafc5.png">
