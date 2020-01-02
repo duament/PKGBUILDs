@@ -1,6 +1,6 @@
 
 pkgname=clash
-pkgver=0.17.0
+pkgver=0.17.1
 pkgrel=1
 pkgdesc="A rule based proxy in Go."
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
@@ -21,7 +21,7 @@ sha256sums=('43bcfd9ebe94f8ea58254af74c5191ef39907b8a4ea1c335af8f9b3a4c3024a3'
             'c3407e0e01d39ca769b104a32645464c366da16d2d935f699ca621b6a55802cb'
             '2397c16eeb48a4992ee3a880369a8b53dfdb0c0d657438e4eff49a8e1efc52f3'
             '528d683f8c68c477cae6c0e135f7d208d36cbafd433fd5c805e225ec3480f275'
-            'e51a45d37d21127de7547f5658bb78fc3ed737201d005ddbebfdce317b560f91')
+            '600b2362ffcf76688ef25e79d02358c58c64b29c96474a38d7b1ae04d8df82c0')
 
 build() {
     cd $pkgname-$pkgver
