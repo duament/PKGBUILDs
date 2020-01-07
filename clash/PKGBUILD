@@ -24,8 +24,13 @@ sha256sums=('43bcfd9ebe94f8ea58254af74c5191ef39907b8a4ea1c335af8f9b3a4c3024a3'
             '600b2362ffcf76688ef25e79d02358c58c64b29c96474a38d7b1ae04d8df82c0')
 
 build() {
+    export CGO_ENABLED=0
+    _FLAG_VERSION="\"github.com/Dreamacro/clash/constant.Version=$pkgver\""
+    _FLAG_BUILDTIME="\"github.com/Dreamacro/clash/constant.BuildTime=$(date -u)\""
+
     cd $pkgname-$pkgver
-    go build .
+    go build -trimpath \
+             -ldflags "-extldflags $LDFLAGS -X $_FLAG_VERSION -X $_FLAG_BUILDTIME -w -s"
 }
 
 package() {
