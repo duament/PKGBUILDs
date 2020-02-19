@@ -1,6 +1,6 @@
 
 pkgname=yacd
-pkgver=0.1.6
+pkgver=0.1.7
 pkgrel=1
 pkgdesc="Yet Another Clash Dashboard"
 arch=('any')
@@ -10,7 +10,7 @@ depends=()
 makedepends=('yarn')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/haishanh/yacd/archive/v$pkgver.tar.gz"
         "no_web_fonts.patch")
-sha256sums=('3b18a667a7bdcfe8cf084e9a94c860778c564723c190a47acbebbd91c0ec7600'
+sha256sums=('a5bff3adf45d6cfe91c6be0274f92acd52c4831040f20af913f9bed5b90a1694'
             '435ef3d821887ef2e8702c46f2dc0cdf50fb6d1be099caa77d91a7b6a8b2b1bd')
 
 prepare() {
