@@ -6,21 +6,13 @@ After=network.target
 Type=simple
 User=clash
 Restart=on-abort
-CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
 ExecStart=/usr/bin/clash -d /var/lib/clash
-
-LockPersonality=yes
-MemoryDenyWriteExecute=yes
-NoNewPrivileges=yes
-RestrictNamespaces=yes
-SystemCallArchitectures=native
-SystemCallFilter=@system-service
 
 ProtectSystem=strict
 ProtectHome=yes
 ReadWritePaths=/var/lib/clash
 PrivateTmp=yes
-PrivateDevices=yes
 
 [Install]
 WantedBy=multi-user.target
