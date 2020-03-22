@@ -1,3 +1,7 @@
+# Maintainer: Duama <admin@duama.top>
+# Contributor: Felix Yan <felixonmars@archlinux.org>
+# Contributor: Ariel AxionL <i@axionl.me>
+# Contributor: Luke Yue <lukedyue@gmail.com>
 
 pkgname=clash
 pkgver=0.19.0
@@ -6,8 +10,8 @@ pkgdesc="A rule based proxy in Go."
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
 url="https://github.com/Dreamacro/clash"
 license=('GPL3')
-depends=()
-makedepends=('go' 'git')
+depends=('glibc')
+makedepends=('go-pie' 'git')
 backup=("etc/${pkgname}.conf")
 install=${pkgname}.install
 source=("clash.conf"
@@ -24,13 +28,13 @@ sha256sums=('43bcfd9ebe94f8ea58254af74c5191ef39907b8a4ea1c335af8f9b3a4c3024a3'
             'b479cc08ab17b43e005c1d70babf296f27572e92ae736aa416663be08b27f85a')
 
 build() {
-    export CGO_ENABLED=0
-    _FLAG_VERSION="\"github.com/Dreamacro/clash/constant.Version=$pkgver\""
-    _FLAG_BUILDTIME="\"github.com/Dreamacro/clash/constant.BuildTime=\""
+    cd "$pkgname-$pkgver"
+    go build -trimpath -ldflags "-extldflags $LDFLAGS -X github.com/Dreamacro/clash/constant.Version=${pkgver} -w -s" -mod=readonly
+}
 
-    cd $pkgname-$pkgver
-    go build -trimpath \
-             -ldflags "-extldflags $LDFLAGS -X $_FLAG_VERSION -X $_FLAG_BUILDTIME -w -s"
+check() {
+    cd "${pkgname}-${pkgver}"
+    go test github.com/Dreamacro/clash/...
 }
 
 package() {
