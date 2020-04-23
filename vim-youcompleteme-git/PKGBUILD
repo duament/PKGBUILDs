@@ -1,0 +1,68 @@
+# Maintainer: Duama <admin@duama.top>
+
+pkgname=vim-youcompleteme-git
+pkgver=r2666.367c1518
+pkgrel=1
+pkgdesc="A code-completion engine for Vim"
+arch=('x86_64')
+url='https://ycm-core.github.io/YouCompleteMe/'
+license=('GPL3')
+groups=('vim-plugins')
+depends=('boost-libs' 'python' 'vim' 'clang' 'python-bottle' 'python-jedi' 'python-regex' 'python-requests' 'python-requests-futures' 'python-waitress' 'python-watchdog')
+optdepends=('rust: Rust language support'
+            'go-tools: Go language support'
+            'typescript: TypeScript language support'
+            'omnisharp-roslyn-http-bin: C# language support')
+makedepends=('cmake' 'git' 'make' 'boost')
+source=('git+https://github.com/ycm-core/YouCompleteMe.git'
+        'git+https://github.com/ycm-core/ycmd.git'
+        'setup_ycm.py'
+        'setup_ycmd.py'
+        'ycm_path.patch'
+        'ycmd_path.patch')
+sha256sums=('SKIP'
+            'SKIP'
+            '3b349c9e86e0468c603e4c395825c628158584eb08eb9c28a6c5cc39a2fc2357'
+            '98c5b598021493a77a46713e52d3d79c398bb9156ae6b5e9e28cc952e3848516'
+            'e7c24376db2e4739e775ad1b6eb8dce24f76a1e7bf8818fd279503c3a7884338'
+            'c3438e8fdc1890f459080d64466f1f038d361d57c51e0d23b356f7181d9f24d4')
+
+pkgver() {
+    cd YouCompleteMe
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+prepare() {
+    cp "$srcdir/setup_ycm.py" "$srcdir/YouCompleteMe/python/setup.py"
+    cp "$srcdir/setup_ycmd.py" "$srcdir/ycmd/setup.py"
+    cp "$srcdir/ycmd/CORE_VERSION" "$srcdir/ycmd/ycmd/CORE_VERSION"
+
+    cd "$srcdir/YouCompleteMe"
+
+    patch --forward --strip=1 --input="$srcdir/ycm_path.patch"
+
+    cd "$srcdir/ycmd"
+    patch --forward --strip=1 --input="$srcdir/ycmd_path.patch"
+}
+
+build() {
+    cd "$srcdir/YouCompleteMe/python"
+    python setup.py build
+
+    cd "$srcdir/ycmd"
+    cmake -G "Unix Makefiles" -DUSE_PYTHON2=OFF -DUSE_SYSTEM_LIBCLANG="ON" -DUSE_SYSTEM_BOOST=ON . "cpp"
+    make
+    python setup.py build
+}
+
+package() {
+    install -Dm 644 "$srcdir/YouCompleteMe/autoload/youcompleteme.vim" -t "$pkgdir/usr/share/vim/vimfiles/autoload"
+    install -Dm 644 "$srcdir/YouCompleteMe/doc/youcompleteme.txt" -t "$pkgdir/usr/share/vim/vimfiles/doc"
+    install -Dm 644 "$srcdir/YouCompleteMe/plugin/youcompleteme.vim" -t "$pkgdir/usr/share/vim/vimfiles/plugin"
+
+    cd "$srcdir/YouCompleteMe/python"
+    python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+
+    cd "$srcdir/ycmd"
+    python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+}

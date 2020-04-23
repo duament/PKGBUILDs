@@ -1,0 +1,7 @@
+/*
+!/.gitignore
+!/PKGBUILD
+!/setup_ycm.py
+!/setup_ycmd.py
+!/ycm_path.patch
+!/ycmd_path.patch
