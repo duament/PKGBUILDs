@@ -1,0 +1,23 @@
+# Maintainer: Duama <admin@duama.top>
+# Contributor: HRKo <ootaharuki99[at]gmail.com>
+
+pkgname=fcitx5-skin-material-git
+pkgver=r17.843273c
+pkgrel=1
+pkgdesc='A Material Design-like skin for Fcitx5.'
+arch=('any')
+url="https://github.com/ootaharuki99/fcitx-skin-material"
+license=('Apache')
+depends=('fcitx5')
+source=("$pkgname::git+https://github.com/hrko99/fcitx-skin-material.git")
+sha256sums=('SKIP')
+
+pkgver() {
+    cd $pkgname
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+    install -dm755 $pkgdir/usr/share/fcitx5/themes/material
+    install -Dm644 $pkgname/material/* $pkgdir/usr/share/fcitx5/themes/material
+}
