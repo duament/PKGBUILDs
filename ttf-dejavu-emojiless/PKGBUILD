@@ -13,13 +13,13 @@ makedepends=('fontforge')
 provides=('ttf-font' 'ttf-dejavu')
 conflicts=('ttf-dejavu')
 source=(https://downloads.sourceforge.net/project/dejavu/dejavu/${pkgver}/dejavu-fonts-ttf-${pkgver}.tar.bz2
-        https://www.unicode.org/Public/emoji/1.0/emoji-data.txt
+        https://unicode.org/Public/13.0.0/ucd/emoji/emoji-data.txt
         remove-generic-name-assignment-and-aliasing.patch
         cleaner.py)
 sha256sums=('fa9ca4d13871dd122f61258a80d01751d603b4d3ee14095d65453b4e846e17d7'
-            '4822fed8b857ca26490fe13ab504904a1da59ed18f34ed25cc27fcace0fdf88b'
+            'd2686f400a638c80775d7c662556fb8fa8dd3bbe4aa548d9d31624264c6e1bb1'
             '21d85a4f6ea7856074a4eb5c5fce6a10e764d11ff4336e92c4f009815efebb0c'
-            '010f997ad9d7e375433d37d0b32389163c2aa6d7c3b9a30db1ffa3ad2866e9eb')
+            '71f017aa2fcea6ccb2d0036d2f5161699b5a9882d0218ae664f03813cdc0c231')
 
 prepare() {
   cd dejavu-fonts-ttf-$pkgver
