@@ -1,0 +1,5 @@
+/*
+!/.gitignore
+!/PKGBUILD
+!/etesync-dav.service
+!/exclude_tests.patch

@@ -1,0 +1,50 @@
+# Maintainer: Duama <admin@duama.top>
+# Contributor: Tom Hacohen <tom@stosb.com>
+# Contributor: David Runge <dave@sleepmap.de>
+
+pkgname=etesync-dav
+pkgver=0.17.0
+pkgrel=1
+pkgdesc="A CalDAV and CardDAV adapter for EteSync"
+arch=('any')
+url="https://pypi.python.org/pypi/${pkgname}/"
+license=('GPL')
+depends=('python-appdirs'
+         'python-etesync'
+         'radicale'
+         'python-flask'
+         'python-flask-wtf'
+)
+replaces=('python-radicale-storage-etesync')
+makedepends=('python-setuptools')
+source=("https://pypi.org/packages/source/e/${pkgname}/${pkgname}-${pkgver}.tar.gz"
+        "etesync-dav.service"
+        "exclude_tests.patch")
+sha512sums=('e4b6941b30fd76ad86b920ecd93512cf6650ef302f1f382e0b2fcbc63b30f54f513ea9d2023ca8706562b0d5c1bbcc9ac62c686a0864ae1081430314dd797cfb'
+            '5c1db1c8f25d696ef7163bb5615840a8b4cdbdc02e00ca25f007e9eb8750849fd29d70d5873f22c403cef0e992809ededaa0fd4619c243b3515ec1cb6ac35722'
+            '0ca6cc6c2bfdf3a4ecb37b70738f2046961b4655a6332709cd7c82e01496d34cd6bca66aadfc11020548f321b4cf45abc7721c64004704bd16cfba7d700a013c')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  patch --forward --strip=1 --input="$srcdir/exclude_tests.patch"
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  python setup.py build
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  python setup.py install --skip-build \
+    --optimize=1 \
+    --prefix=/usr \
+    --root="${pkgdir}"
+  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
+    -vDm644 {DESCRIPTION.rst,README.md}
+
+# FIXME: replace with the one in the etesync-dav repo once released
+  mkdir -p "${pkgdir}/usr/lib/systemd/user/"
+  install -Dm644 ../etesync-dav.service "${pkgdir}/usr/lib/systemd/user/"
+}
+
