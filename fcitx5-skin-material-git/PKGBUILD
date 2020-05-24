@@ -2,7 +2,7 @@
 # Contributor: HRKo <ootaharuki99[at]gmail.com>
 
 pkgname=fcitx5-skin-material-git
-pkgver=r17.843273c
+pkgver=r21.be0d0de
 pkgrel=1
 pkgdesc='A Material Design-like skin for Fcitx5.'
 arch=('any')
