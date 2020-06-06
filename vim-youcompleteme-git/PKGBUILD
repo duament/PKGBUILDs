@@ -1,7 +1,7 @@
 # Maintainer: Duama <admin@duama.top>
 
 pkgname=vim-youcompleteme-git
-pkgver=r2687.27362f85
+pkgver=r2687.27362f85.r2666.3e379864
 pkgrel=1
 pkgdesc="A code-completion engine for Vim"
 arch=('x86_64')
@@ -28,7 +28,12 @@ sha256sums=('SKIP'
             'c3438e8fdc1890f459080d64466f1f038d361d57c51e0d23b356f7181d9f24d4')
 
 pkgver() {
-    cd YouCompleteMe
+    cd "$srcdir/YouCompleteMe"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+
+    printf .
+
+    cd "$srcdir/ycmd"
     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
