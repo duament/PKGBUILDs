@@ -1,6 +1,6 @@
 
 pkgname=yacd
-pkgver=0.1.18
+pkgver=0.1.19
 pkgrel=1
 pkgdesc="Yet Another Clash Dashboard"
 arch=('any')
@@ -8,14 +8,11 @@ url="https://github.com/haishanh/yacd"
 license=('MIT')
 depends=()
 makedepends=('yarn')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/haishanh/yacd/archive/v$pkgver.tar.gz"
-        "no_web_fonts.patch")
-sha256sums=('4eb2e332b39d6a1e0da2381bbf97b7bb21f13066947aecbb5cc7a5f751d3874a'
-            '78709f93808c8c0ae4666041c99a030c455c214aa178742c56a8924c7c438c85')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/haishanh/yacd/archive/v$pkgver.tar.gz")
+sha256sums=('c165e2c5b6b10cb57fa5b47df09377b0d7703b78085dbf5337ac6451e6298e02')
 
 prepare() {
     cd $pkgname-$pkgver
-    patch --forward --strip=1 --input="$srcdir/no_web_fonts.patch"
     yarn install
 }
 
