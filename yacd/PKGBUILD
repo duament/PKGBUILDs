@@ -1,6 +1,6 @@
 
 pkgname=yacd
-pkgver=0.1.22
+pkgver=0.1.23
 pkgrel=1
 pkgdesc="Yet Another Clash Dashboard"
 arch=('any')
@@ -9,7 +9,7 @@ license=('MIT')
 depends=()
 makedepends=('yarn')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/haishanh/yacd/archive/v$pkgver.tar.gz")
-sha256sums=('1ee9a6d22f9a7510ed2318b92d5da5b7b3d3b5252e55d3635fcc2af4555fca87')
+sha256sums=('168f2708da38344f0b20736f6d4450087a8405951fcb793a98f9aa968d0ea3d6')
 
 prepare() {
     cd $pkgname-$pkgver
