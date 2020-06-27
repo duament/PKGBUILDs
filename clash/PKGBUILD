@@ -4,14 +4,14 @@
 # Contributor: Luke Yue <lukedyue@gmail.com>
 
 pkgname=clash
-pkgver=0.20.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="A rule based proxy in Go."
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
 url="https://github.com/Dreamacro/clash"
 license=('GPL3')
 depends=('glibc')
-makedepends=('go-pie' 'git')
+makedepends=('go' 'git')
 backup=("etc/${pkgname}.conf")
 install=${pkgname}.install
 source=("clash.conf"
@@ -21,15 +21,21 @@ source=("clash.conf"
         "clash-tmpfiles.conf"
         "$pkgname-$pkgver.tar.gz::https://github.com/Dreamacro/clash/archive/v$pkgver.tar.gz")
 sha256sums=('43bcfd9ebe94f8ea58254af74c5191ef39907b8a4ea1c335af8f9b3a4c3024a3'
-            'a611aa6afc28e2836f33deec3963cdba470ac65c57e680dfe22cf184589501b9'
-            'e0b06dffcb14f0cb9db5269e6f5fea3d17c90a2464e56a8a6da98c9106a9005c'
+            'af19eeb581c4e108e05e805ecf12cf751ba747b51ac1fb4f4b133d8629527d33'
+            '3b3ff0c0a09576e61df618982fb394ed3849ed664fedfff99c87d862d3e5273f'
             '2397c16eeb48a4992ee3a880369a8b53dfdb0c0d657438e4eff49a8e1efc52f3'
             '528d683f8c68c477cae6c0e135f7d208d36cbafd433fd5c805e225ec3480f275'
-            '67499f6e3082cbf864f62e9d194499335122f66c908aac064a2fa4a812bddfd9')
+            'eefd9fb6c413a4eca7999eb4dd1d760a5bfd61100310390ba9c24b64f0962f28')
 
 build() {
+    export CGO_CPPFLAGS="${CPPFLAGS}"
+    export CGO_CFLAGS="${CFLAGS}"
+    export CGO_CXXFLAGS="${CXXFLAGS}"
+    export CGO_LDFLAGS="${LDFLAGS}"
+    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+
     cd "$pkgname-$pkgver"
-    go build -trimpath -ldflags "-extldflags $LDFLAGS -X github.com/Dreamacro/clash/constant.Version=${pkgver} -w -s" -mod=readonly
+    go build -trimpath -ldflags "-X github.com/Dreamacro/clash/constant.Version=${pkgver}" -mod=readonly
 }
 
 check() {
