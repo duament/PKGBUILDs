@@ -1,7 +1,7 @@
 # Maintainer: Duama <admin@duama.top>
 
 pkgname=vim-youcompleteme-git
-pkgver=r2728.d98f896a.r2754.a4e81496
+pkgver=r2739.4891999f.r2762.0784f9e9
 pkgrel=1
 pkgdesc="A code-completion engine for Vim"
 arch=('x86_64')
@@ -24,7 +24,7 @@ sha256sums=('SKIP'
             'SKIP'
             '3b349c9e86e0468c603e4c395825c628158584eb08eb9c28a6c5cc39a2fc2357'
             '98c5b598021493a77a46713e52d3d79c398bb9156ae6b5e9e28cc952e3848516'
-            'e7c24376db2e4739e775ad1b6eb8dce24f76a1e7bf8818fd279503c3a7884338'
+            'b23c677b0bdbcb12ac3554ba34257a1e033b19a5e5419d8b13636b292ec30383'
             'c3438e8fdc1890f459080d64466f1f038d361d57c51e0d23b356f7181d9f24d4')
 
 pkgver() {

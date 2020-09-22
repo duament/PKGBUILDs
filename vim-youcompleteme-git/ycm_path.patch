@@ -1,18 +1,8 @@
 diff --git a/plugin/youcompleteme.vim b/plugin/youcompleteme.vim
-index bfe77516..989965d9 100644
+index b6673bee..fd34190d 100644
 --- a/plugin/youcompleteme.vim
 +++ b/plugin/youcompleteme.vim
-@@ -85,8 +85,7 @@ let g:loaded_youcompleteme = 1
- let s:default_options = {}
- if exists( '*json_decode' )
-   let s:script_folder_path = expand( '<sfile>:p:h' )
--  let s:option_file = s:script_folder_path .
--        \ '/../third_party/ycmd/ycmd/default_settings.json'
-+  let s:option_file = '/usr/lib/python3.8/site-packages/ycmd/default_settings.json'
-   if filereadable( s:option_file )
-     let s:default_options = json_decode( join( readfile( s:option_file ) ) )
-   endif
-@@ -294,6 +293,13 @@ let g:ycm_java_jdtls_workspace_root_path =
+@@ -277,6 +277,13 @@ let g:ycm_java_jdtls_workspace_root_path =
  let g:ycm_python_binary_path =
        \ get( g:, 'ycm_python_binary_path', '' )
  
@@ -23,11 +13,11 @@ index bfe77516..989965d9 100644
 +let g:ycm_tsserver_binary_path= 'tsserver'
 +let g:ycm_roslyn_binary_path = '/opt/omnisharp-roslyn/OmniSharp.exe'
 +
- " Populate any other (undocumented) options set in the ycmd
- " default_settings.json. This ensures that any part of ycm that uses ycmd code
- " will have the default set. I'm looking at you, Omni-completer.
+ if has( 'vim_starting' ) " Loading at startup.
+   " We defer loading until after VimEnter to allow the gui to fork (see
+   " `:h gui-fork`) and avoid a deadlock situation, as explained here:
 diff --git a/python/ycm/paths.py b/python/ycm/paths.py
-index 055c9d90..3c408e41 100644
+index 1fa158c5..90870288 100644
 --- a/python/ycm/paths.py
 +++ b/python/ycm/paths.py
 @@ -19,11 +19,11 @@ import os
@@ -40,13 +30,7 @@ index 055c9d90..3c408e41 100644
  DIR_OF_CURRENT_SCRIPT = os.path.dirname( os.path.abspath( __file__ ) )
 -DIR_OF_YCMD = os.path.join( DIR_OF_CURRENT_SCRIPT, '..', '..', 'third_party',
 -                            'ycmd' )
-+DIR_OF_YCMD = os.path.join( ycmd.__file__, '..' )
++DIR_OF_YCMD = os.path.normpath( os.path.join( ycmd.__file__, '..', '..' ) )
  WIN_PYTHON_PATH = os.path.join( sys.exec_prefix, 'python.exe' )
  PYTHON_BINARY_REGEX = re.compile(
-   r'python(3(\.[5-9])?)?(.exe)?$', re.IGNORECASE )
-@@ -85,4 +85,4 @@ def _EndsWithPython( path ):
- 
- 
- def PathToServerScript():
--  return os.path.join( DIR_OF_YCMD, 'ycmd' )
-+  return os.path.normpath( DIR_OF_YCMD )
+   r'python(3(\.[6-9])?)?(.exe)?$', re.IGNORECASE )
