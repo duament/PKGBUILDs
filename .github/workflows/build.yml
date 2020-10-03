@@ -1,5 +1,5 @@
 name: Build packages
-on: push
+on: [push, workflow_dispatch]
 
 jobs:
   clash:
