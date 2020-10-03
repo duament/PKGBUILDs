@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  job:
-    name: Build vim-youcompleteme-git
+  python-requests-futures:
+    name: Build python-requests-futures
     runs-on: ubuntu-latest
     container:
       image: archlinux
@@ -23,9 +23,28 @@ jobs:
         with:
           PKGBUILD: $GITHUB_WORKSPACE/python-requests-futures
           OUTDIR: $HOME/python-requests-futures
+      - uses: actions/upload-artifact@v2
+        with:
+          name: python-requests-futures
+          path: ${{ steps.build.outputs.pkg_path }}
+
+  job:
+    name: Build vim-youcompleteme-git
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - uses: actions/checkout@v2
+      - id: download
+        uses: actions/download-artifact@v2
+        with:
+          name: python-requests-futures
       - id: get-param
         run: |
-          param=-I\ ${{ steps.build_python_requests_futures.outputs.pkg_path }}
+          param=-I\ ${{ steps.download.outputs.download-path }}
           echo "::set-output name=param::$param"
       - name: Build Arch Linux packages
         id: build
