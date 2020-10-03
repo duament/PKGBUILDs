@@ -26,7 +26,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: python-requests-futures
-          path: ${{ steps.build.outputs.pkg_path }}
+          path: ${{ steps.build_python_requests_futures.outputs.pkg_path }}
 
   job:
     name: Build vim-youcompleteme-git
