@@ -45,7 +45,7 @@ jobs:
           name: python-requests-futures
       - id: get-param
         run: |
-          pkg_path=$(ls -d ${{ steps.download.outputs.download-path }})
+          pkg_path=$(ls -d ${{ steps.download.outputs.download-path }}/*)
           param="-I $pkg_path"
           echo "::set-output name=param::$param"
       - name: Build Arch Linux packages
