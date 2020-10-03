@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'vim-youcompleteme-git/**'
+      - '.github/workflows/vim-youcompleteme-git.yml'
 
 jobs:
   job:
@@ -15,12 +16,23 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
       - uses: actions/checkout@v2
+      - name: Build python-requests-futures
+        id: build_python_requests_futures
+        uses: duament/build-arch-package@master
+        with:
+          PKGBUILD: $GITHUB_WORKSPACE/python-requests-futures
+          OUTDIR: $HOME/python-requests-futures
+      - id: get-param
+        run: |
+          param=-I\ ${{ steps.build_python_requests_futures.outputs.pkg_path }}
+          echo "::set-output name=param::$param"
       - name: Build Arch Linux packages
         id: build
         uses: duament/build-arch-package@master
         with:
           PKGBUILD: $GITHUB_WORKSPACE/vim-youcompleteme-git
           OUTDIR: $HOME/arch-packages
+          PARAM: ${{ steps.get-param.outputs.param }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
