@@ -16,8 +16,8 @@ jobs:
         uses: duament/build-arch-package@master
         with:
           PKGBUILD: $GITHUB_WORKSPACE/clash
-          OUTDIR: $HOME/arch-packages
+          OUTDIR: /home/user/arch-packages
       - uses: actions/upload-artifact@v2
         with:
           name: Upload packages
-          path: $HOME/arch-packages/*
+          path: /home/user/arch-packages/*
