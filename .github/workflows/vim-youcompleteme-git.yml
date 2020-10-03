@@ -4,6 +4,7 @@ on:
     paths:
       - 'vim-youcompleteme-git/**'
       - '.github/workflows/vim-youcompleteme-git.yml'
+  workflow_dispatch:
 
 jobs:
   job:
