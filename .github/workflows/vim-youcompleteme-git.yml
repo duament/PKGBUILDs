@@ -62,7 +62,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: vim-youcompleteme-${{ github.event.head_commit.sha }}
+          tag_name: ${{ github.ref }}
           release_name: ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
