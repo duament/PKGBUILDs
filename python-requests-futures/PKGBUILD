@@ -19,10 +19,10 @@ build() {
     python setup.py build
 }
 
-check() {
-    cd "requests-futures-$pkgver"
-    python test_requests_futures.py
-}
+#check() {
+#    cd "requests-futures-$pkgver"
+#    python test_requests_futures.py
+#}
 
 package() {
     cd "requests-futures-$pkgver"
