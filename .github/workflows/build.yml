@@ -1,0 +1,23 @@
+name: Build packages
+on: push
+
+jobs:
+  clash:
+    name: Build clash
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Arch Linux packages
+        uses: duament/build-arch-package@master
+        with:
+          PKGBUILD: $GITHUB_WORKSPACE/clash
+          OUTDIR: $HOME/arch-packages
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Upload packages
+          path: $HOME/arch-packages/*
