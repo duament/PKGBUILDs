@@ -30,6 +30,7 @@ jobs:
 
   job:
     name: Build vim-youcompleteme-git
+    needs: python-requests-futures
     runs-on: ubuntu-latest
     container:
       image: archlinux
