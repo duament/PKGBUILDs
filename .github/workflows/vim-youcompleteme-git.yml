@@ -55,13 +55,17 @@ jobs:
           PKGBUILD: $GITHUB_WORKSPACE/vim-youcompleteme-git
           OUTDIR: $HOME/arch-packages
           PARAM: ${{ steps.get-param.outputs.param }}
+      - id: get-tag
+        run: |
+          tag=vim-youcompleteme-$(date +%Y%m%d%H%M)
+          echo "::set-output name=tag::$tag"
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: vim-youcompleteme-git
+          tag_name: ${{ steps.get-tag.outputs.tag }}
           release_name: ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
