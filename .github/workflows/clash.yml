@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'clash/**'
+      - '.github/workflows/clash.yml'
 
 jobs:
   job:
