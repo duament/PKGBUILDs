@@ -1,7 +1,7 @@
 # Maintainer: Duama <admin@duama.top>
 
 pkgname=vim-youcompleteme-git
-pkgver=r2745.292bb649.r2769.34a1566d
+pkgver=r2747.3e72ffa0.r2769.34a1566d
 pkgrel=1
 pkgdesc="A code-completion engine for Vim"
 arch=('x86_64')
