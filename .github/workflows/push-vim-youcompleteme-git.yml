@@ -25,6 +25,8 @@ jobs:
           cd vim-youcompleteme-git
           sudo -u user makepkg -d -o --noprepare
           msg=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
+          git config --global user.name duament
+          git config --global user.email 30264485+duament@users.noreply.github.com
           git add PKGBUILD
           git commit -m "$msg" || true
           git push
