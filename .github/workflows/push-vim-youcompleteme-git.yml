@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.PAT }}
-      - main:
+      - id: main
         run: |
           pacman -Syu --noconfirm --noprogressbar --needed base-devel git
           cd vim-youcompleteme-git
