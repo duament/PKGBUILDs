@@ -14,18 +14,17 @@ jobs:
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
+      - run: |
+          pacman -Syu --noconfirm --noprogressbar --needed base-devel git sudo
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.PAT }}
-      - id: main
-        run: |
-          pacman -Syu --noconfirm --noprogressbar --needed base-devel git sudo
+      - run: |
           useradd -m user
           chown -R user .
           cd vim-youcompleteme-git
           sudo -u user makepkg -d -o --noprepare
           msg=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
-          cd ..
-          git add vim-youcompleteme-git/PKGBUILD
+          git add PKGBUILD
           git commit -m "$msg" || true
           git push
