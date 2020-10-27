@@ -19,9 +19,11 @@ jobs:
           token: ${{ secrets.PAT }}
       - id: main
         run: |
-          pacman -Syu --noconfirm --noprogressbar --needed base-devel git
+          pacman -Syu --noconfirm --noprogressbar --needed base-devel git sudo
+          useradd -m user
           cd vim-youcompleteme-git
-          makepkg -d -o --noprepare
+          chown user PKGBUILD
+          sudo -u user makepkg -d -o --noprepare
           msg=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
           git add PKGBUILD
           git commit -m "$msg" || true
