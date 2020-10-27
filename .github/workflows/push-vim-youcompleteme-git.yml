@@ -25,6 +25,7 @@ jobs:
           cd vim-youcompleteme-git
           sudo -u user makepkg -d -o --noprepare
           msg=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
-          git add PKGBUILD
+          cd ..
+          git add vim-youcompleteme-git/PKGBUILD
           git commit -m "$msg" || true
           git push
