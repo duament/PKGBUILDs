@@ -1,0 +1,28 @@
+name: Check new version of vim-youcompleteme-git and push
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Check new version of vim-youcompleteme-git and push
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+      - main:
+        run: |
+          pacman -Syu --noconfirm --noprogressbar --needed base-devel git
+          cd vim-youcompleteme-git
+          makepkg -d -o --noprepare
+          msg=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
+          git add PKGBUILD
+          git commit -m "$msg" || true
+          git push
