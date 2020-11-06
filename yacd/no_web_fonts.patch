@@ -1,5 +1,5 @@
 diff --git a/package.json b/package.json
-index 918c8c9..9874d92 100644
+index 79480bc..9eed532 100644
 --- a/package.json
 +++ b/package.json
 @@ -39,8 +39,6 @@
@@ -51,17 +51,3 @@ index fe837de..740249a 100644
  .relative {
    position: relative;
  }
-diff --git a/src/index.template.ejs b/src/index.template.ejs
-index 743202f..1f41e36 100644
---- a/src/index.template.ejs
-+++ b/src/index.template.ejs
-@@ -5,9 +5,6 @@
-   <link rel="shortcut icon" href="yacd.ico">
-   <link rel="icon" type="image/png" sizes="64x64" href="yacd-64.png">
-   <link rel="icon" type="image/png" sizes="128x128" href="yacd-128.png">
--  <link rel="preload" href="/open-sans-latin-400.woff2" as="font" type="font/woff2" crossorigin>
--  <link rel="preload" href="/open-sans-latin-700.woff2" as="font" type="font/woff2" crossorigin>
--  <link rel="preload" href="/roboto-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name=viewport content="width=device-width, initial-scale=1">
-   <meta name="application-name" content="yacd">
