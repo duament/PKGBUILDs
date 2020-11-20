@@ -4,7 +4,7 @@
 # Contributor: Luke Yue <lukedyue@gmail.com>
 
 pkgname=clash
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="A rule based proxy in Go."
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
@@ -25,7 +25,7 @@ sha256sums=('fd2e387e9aa3396cf5d7a1f4ec694ed9a2993ac845a10eebb6941da2434465c0'
             '3b3ff0c0a09576e61df618982fb394ed3849ed664fedfff99c87d862d3e5273f'
             '2397c16eeb48a4992ee3a880369a8b53dfdb0c0d657438e4eff49a8e1efc52f3'
             '528d683f8c68c477cae6c0e135f7d208d36cbafd433fd5c805e225ec3480f275'
-            '7278c8e28641c452c275bb5e1f1216b35e0b5d4a85374fa01d21d8defa282452')
+            '34a31e12eb7e639bdc2e19421fe3a8d9ad710e7d4c13bfc361c2023c9dfe04f6')
 
 build() {
     export CGO_CPPFLAGS="${CPPFLAGS}"
