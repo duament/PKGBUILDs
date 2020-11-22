@@ -22,6 +22,7 @@ jobs:
         with:
           PKGBUILD: $GITHUB_WORKSPACE/mpv-vapoursynth
           OUTDIR: $HOME/arch-packages
+          PARAM: '-- --skippgpcheck'
       - id: get-tag
         run: |
           tag=mpv-vapoursynth-$(date +%Y%m%d%H%M)
