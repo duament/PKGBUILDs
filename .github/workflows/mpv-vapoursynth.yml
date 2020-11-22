@@ -1,0 +1,47 @@
+name: Build mpv-vapoursynth
+on:
+  push:
+    paths:
+      - 'mpv-vapoursynth/**'
+      - '.github/workflows/mpv-vapoursynth.yml'
+
+jobs:
+  job:
+    name: Build mpv-vapoursynth
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Arch Linux packages
+        id: build
+        uses: duament/build-arch-package@master
+        with:
+          PKGBUILD: $GITHUB_WORKSPACE/mpv-vapoursynth
+          OUTDIR: $HOME/arch-packages
+      - id: get-tag
+        run: |
+          tag=mpv-vapoursynth-$(date +%Y%m%d%H%M)
+          echo "::set-output name=tag::$tag"
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get-tag.outputs.tag }}
+          release_name: ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.build.outputs.pkg_path }}
+          asset_name: ${{ steps.build.outputs.pkg_name }}
+          asset_content_type: application/zstd
