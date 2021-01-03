@@ -8,5 +8,5 @@ setup(name="ycmd",
       url="https://github.com/ycm-core/ycmd",
       license="GPL3",
       packages=find_packages(exclude=["examples", "*.tests", "*.tests.*", "tests.*", "tests"]),
-      package_data={"ycmd": ['../ycm_core.so', 'default_settings.json', 'CORE_VERSION']},
+      package_data={"ycmd": ['../ycm_core*.so', 'default_settings.json', 'CORE_VERSION']},
 )
