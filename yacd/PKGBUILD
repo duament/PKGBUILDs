@@ -11,7 +11,7 @@ makedepends=('yarn')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/haishanh/yacd/archive/v$pkgver.tar.gz"
         "no_web_fonts.patch")
 sha256sums=('113b11cec0f6596f9d943388b23137218c915cd9a450b51a193baf394ea58e65'
-            'b1bb02490bb83a0dfe57a8124d05b6c74d4aa8430f5c8b1c4fc1b1cd886aee2b')
+            'e13da8de5d6ef7b4b16f5dceb9d512608311afd8fe0d201535fb5ed090d0b57f')
 
 prepare() {
     cd $pkgname-$pkgver

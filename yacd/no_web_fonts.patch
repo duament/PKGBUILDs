@@ -1,14 +1,14 @@
 diff --git a/package.json b/package.json
-index f5743a6..7c08dd1 100644
+index 261e56b..d8c43bf 100644
 --- a/package.json
 +++ b/package.json
 @@ -29,8 +29,6 @@
      "clsx": "^1.1.0",
-     "core-js": "^3.8.1",
+     "core-js": "^3.8.2",
      "date-fns": "^2.16.0",
--    "fontsource-open-sans": "^3.0.9",
--    "fontsource-roboto-mono": "^3.0.3",
-     "framer-motion": "^2.9.5",
+-    "fontsource-open-sans": "^4.0.0",
+-    "fontsource-roboto-mono": "^4.0.0",
+     "framer-motion": "^3.1.2",
      "history": "^5.0.0",
      "i18next": "^19.8.4",
 diff --git a/src/components/Root.css b/src/components/Root.css
