@@ -6,7 +6,7 @@ arch=('any')
 depends=(devtools)
 makedepends=()
 source=(pacman-duama.conf)
-sha256sums=('4e8c10cc13b1a444ff989b82eefd6f121d2c75c2c691cbec485a9fcd6b2f8027')
+sha256sums=('309570adf116e49e616209e75fd80a18884118196cf3876fb70c613f2efada43')
 
 package() {
     install -dm755 $pkgdir/usr/bin
