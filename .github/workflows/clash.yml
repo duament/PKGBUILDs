@@ -19,33 +19,9 @@ jobs:
       - name: Build Arch Linux packages
         id: build
         uses: duament/build-arch-package@master
-        with:
-          PKGBUILD: $GITHUB_WORKSPACE/clash
-          OUTDIR: $HOME/arch-packages
-      - id: get-tag
-        run: |
-          tag=clash-$(date +%Y%m%d%H%M)
-          echo "::set-output name=tag::$tag"
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
         env:
+          TOKEN: ${{ secrets.TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get-tag.outputs.tag }}
-          release_name: ${{ github.event.head_commit.message }}
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.build.outputs.pkg_path }}
-          asset_name: ${{ steps.build.outputs.pkg_name }}
-          asset_content_type: application/zstd
-      - id: repo-add
-        run: |
-          curl -X POST -H "Token: "${{ secrets.TOKEN }} 'https://repo.duama.top/repo-add' -d ${{ steps.upload.outputs.browser_download_url }}
+          DIR: $GITHUB_WORKSPACE/clash
+
