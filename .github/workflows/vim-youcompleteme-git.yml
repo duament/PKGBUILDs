@@ -6,30 +6,8 @@ on:
       - '.github/workflows/vim-youcompleteme-git.yml'
 
 jobs:
-  python-requests-futures:
-    name: Build python-requests-futures
-    runs-on: ubuntu-latest
-    container:
-      image: archlinux
-      options: --privileged
-      volumes:
-        - /sys/fs/cgroup:/sys/fs/cgroup
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build python-requests-futures
-        id: build_python_requests_futures
-        uses: duament/build-arch-package@master
-        with:
-          PKGBUILD: $GITHUB_WORKSPACE/python-requests-futures
-          OUTDIR: $HOME/python-requests-futures
-      - uses: actions/upload-artifact@v2
-        with:
-          name: python-requests-futures
-          path: ${{ steps.build_python_requests_futures.outputs.pkg_path }}
-
   job:
     name: Build vim-youcompleteme-git
-    needs: python-requests-futures
     runs-on: ubuntu-latest
     container:
       image: archlinux
@@ -38,47 +16,11 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
       - uses: actions/checkout@v2
-      - id: download
-        uses: actions/download-artifact@v2
-        with:
-          name: python-requests-futures
-          path: /pkg
-      - id: get-param
-        run: |
-          pkg_path=$(ls -d /pkg/*)
-          param="-I $pkg_path"
-          echo "::set-output name=param::$param"
       - name: Build Arch Linux packages
         id: build
         uses: duament/build-arch-package@master
-        with:
-          PKGBUILD: $GITHUB_WORKSPACE/vim-youcompleteme-git
-          OUTDIR: $HOME/arch-packages
-          PARAM: ${{ steps.get-param.outputs.param }}
-      - id: get-tag
-        run: |
-          tag=vim-youcompleteme-$(date +%Y%m%d%H%M)
-          echo "::set-output name=tag::$tag"
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
         env:
+          TOKEN: ${{ secrets.TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get-tag.outputs.tag }}
-          release_name: ${{ github.event.head_commit.message }}
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.build.outputs.pkg_path }}
-          asset_name: ${{ steps.build.outputs.pkg_name }}
-          asset_content_type: application/zstd
-      - id: repo-add
-        run: |
-          curl -X POST -H "Token: "${{ secrets.TOKEN }} 'https://repo.duama.top/repo-add' -d ${{ steps.upload.outputs.browser_download_url }}
+          DIR: $GITHUB_WORKSPACE/vim-youcompleteme-git
