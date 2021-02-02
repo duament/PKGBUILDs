@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Receive PGP keys
-        run: gpg --batch --keyserver https://keyserver.ubuntu.com/ --recv-keys 145077D82501AA20152CACCE8D769208D5E31419
+        run: gpg --batch --keyserver hkp://keyserver.ubuntu.com/ --recv-keys 145077D82501AA20152CACCE8D769208D5E31419
       - name: Build Arch Linux packages
         id: build
         uses: duament/build-arch-package@master
