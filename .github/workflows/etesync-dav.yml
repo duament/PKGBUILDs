@@ -37,6 +37,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload Release Asset
+        id: upload
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -45,3 +46,6 @@ jobs:
           asset_path: ${{ steps.build.outputs.pkg_path }}
           asset_name: ${{ steps.build.outputs.pkg_name }}
           asset_content_type: application/zstd
+      - id: repo-add
+        run: |
+          curl -X POST -H "Token: "${{ secrets.TOKEN }} 'https://repo.duama.top/repo-add' -d ${{ steps.upload.outputs.browser_download_url }}

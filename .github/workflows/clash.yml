@@ -47,7 +47,5 @@ jobs:
           asset_name: ${{ steps.build.outputs.pkg_name }}
           asset_content_type: application/zstd
       - id: repo-add
-        env:
-          URL: ${{ steps.upload.outputs.browser_download_url }}
         run: |
-          curl -X POST -H "Token: "${{ secrets.TOKEN }} 'https://repo.duama.top/repo-add' -d "$URL"
+          curl -X POST -H "Token: "${{ secrets.TOKEN }} 'https://repo.duama.top/repo-add' -d ${{ steps.upload.outputs.browser_download_url }}
