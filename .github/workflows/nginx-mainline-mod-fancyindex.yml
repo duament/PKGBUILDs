@@ -1,0 +1,31 @@
+name: Build nginx-mainline-mod-fancyindex
+on:
+  push:
+    paths:
+      - 'nginx-mainline-mod-fancyindex/**'
+      - '.github/workflows/nginx-mainline-mod-fancyindex.yml'
+
+jobs:
+  job:
+    name: Build nginx-mainline-mod-fancyindex
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - uses: actions/checkout@v2
+      - name: Receive PGP keys
+        run: |
+          mkdir /gpg_keys
+          curl -Ls 'https://nginx.org/keys/mdounin.key' -o /gpg_keys/mdounin
+      - name: Build Arch Linux packages
+        id: build
+        uses: duament/build-arch-package@master
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBKEY_DIR: /gpg_keys
+        with:
+          DIR: $GITHUB_WORKSPACE/nginx-mainline-mod-fancyindex
