@@ -1,0 +1,26 @@
+name: Build fcitx5-skin-material
+on:
+  push:
+    paths:
+      - 'fcitx5-skin-material/**'
+      - '.github/workflows/fcitx5-skin-material.yml'
+
+jobs:
+  job:
+    name: Build fcitx5-skin-material
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Arch Linux packages
+        id: build
+        uses: duament/build-arch-package@master
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          DIR: $GITHUB_WORKSPACE/fcitx5-skin-material
