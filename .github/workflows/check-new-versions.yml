@@ -40,3 +40,12 @@ jobs:
           git commit -m "sbupdate-git: $ver" || true
           git push
           cd ..
+      - run: |
+          cd nginx-mainline-mod-fancyindex
+          full_version=$(pacman -Si nginx-mainline | grep -m 1 '^Version' | awk '{print $NF}')
+          version=${full_version%-*}
+          sed -i -e "s/^\s*_nginxver=.*$/_nginxver=$version/g" PKGBUILD
+          git add PKGBUILD
+          git commit -m "sbupdate-git: $ver" || true
+          git push
+          cd ..
