@@ -1,6 +1,7 @@
 # Maintainer: Duama <admin@duama.top>
 # Contributor: HRKo <ootaharuki99[at]gmail.com>
 
+_pkgname=fcitx-skin-material
 pkgname=fcitx5-skin-material
 pkgver=0.5
 pkgrel=1
@@ -9,10 +10,10 @@ arch=('any')
 url="https://github.com/hrko/fcitx-skin-material"
 license=('Apache')
 depends=('fcitx5')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/hrko/fcitx-skin-material/archive/v$pkgver.tar.gz")
+source=("$_pkgname-$pkgver.tar.gz::https://github.com/hrko/fcitx-skin-material/archive/v$pkgver.tar.gz")
 sha256sums=('f2819f2053d8f1cceeb6b7fb917d11494ea962a9370fe095a580d7c41b1e40bb')
 
 package() {
     install -dm755 $pkgdir/usr/share/fcitx5/themes/material
-    install -Dm644 $pkgname-$pkgver/material/* $pkgdir/usr/share/fcitx5/themes/material
+    install -Dm644 $_pkgname-$pkgver/material/* $pkgdir/usr/share/fcitx5/themes/material
 }
