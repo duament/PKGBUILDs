@@ -16,13 +16,14 @@ jobs:
     steps:
       - run: |
           pacman -Syu --noconfirm --noprogressbar --needed base-devel git sudo
-          useradd -m user
-          chown -R user .
           git config --global user.name duament
           git config --global user.email 30264485+duament@users.noreply.github.com
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.PAT }}
+      - run: |
+          useradd -m user
+          chown -R user .
       - run: |
           cd vim-youcompleteme-git
           sudo -u user makepkg -d -o --noprepare
