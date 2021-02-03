@@ -18,7 +18,9 @@ build() {
 }
 
 package() {
-    install -Dm755 $pkgname-$pkgver/mpris.so "$pkgdir/usr/lib/mpv/mpris.so"
-    ln -s /usr/lib/mpv/mpris.so /etc/mpv/scripts/mpris.so
+    install -Dm755 $pkgname-$pkgver/mpris.so $pkgdir/usr/lib/mpv/mpris.so
+
+    install -dm755 $pkgdir/etc/mpv/scripts
+    ln -s /usr/lib/mpv/mpris.so $pkgdir/etc/mpv/scripts/mpris.so
 }
 
