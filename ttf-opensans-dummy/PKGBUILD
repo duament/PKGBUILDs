@@ -1,0 +1,8 @@
+
+pkgname=ttf-opensans-dummy
+pkgver=1
+pkgrel=1
+arch=(any)
+conflicts=('ttf-opensans')
+provides=('ttf-opensans')
+
