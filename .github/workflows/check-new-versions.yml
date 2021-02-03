@@ -1,4 +1,4 @@
-name: Check new version of vim-youcompleteme-git and push
+name: Check new versions and push
 on:
   schedule:
     - cron: '0 0 * * *'
@@ -6,7 +6,7 @@ on:
 
 jobs:
   check:
-    name: Check new version of vim-youcompleteme-git and push
+    name: Check new versions and push
     runs-on: ubuntu-latest
     container:
       image: archlinux
@@ -16,17 +16,26 @@ jobs:
     steps:
       - run: |
           pacman -Syu --noconfirm --noprogressbar --needed base-devel git sudo
+          useradd -m user
+          chown -R user .
+          git config --global user.name duament
+          git config --global user.email 30264485+duament@users.noreply.github.com
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.PAT }}
       - run: |
-          useradd -m user
-          chown -R user .
           cd vim-youcompleteme-git
           sudo -u user makepkg -d -o --noprepare
           ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
-          git config --global user.name duament
-          git config --global user.email 30264485+duament@users.noreply.github.com
           git add PKGBUILD
           git commit -m "vim-youcompleteme-git: $ver" || true
           git push
+          cd ..
+      - run: |
+          cd sbupdate-git
+          sudo -u user makepkg -d -o --noprepare
+          ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
+          git add PKGBUILD
+          git commit -m "sbupdate-git: $ver" || true
+          git push
+          cd ..
