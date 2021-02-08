@@ -1,0 +1,36 @@
+# Maintainer: Duama <admin@duama.top>
+# Contributor: Tom Hacohen <tom@stosb.com>
+
+pkgname=python-etebase
+_pkgname=etebase-py
+pkgver=0.31.2
+pkgrel=3
+pkgdesc="Etebase Python library"
+arch=(x86_64)
+url="https://github.com/etesync/etebase-py"
+license=('BSD')
+depends=('openssl' 'python-msgpack')
+makedepends=('cargo' 'git' 'python-setuptools' 'python-wheel' 'python-setuptools-rust')
+source=("$_pkgname-$pkgver.tar.gz::https://github.com/etesync/$_pkgname/archive/v$pkgver.tar.gz")
+sha256sums=('bbb246a5cac1bc5f00a1ca8f1762eaba6f346a3c355bee9b40728b1ec1e9cd38')
+
+prepare() {
+  cd $_pkgname-$pkgver
+  sed -i '/^openssl =/d' Cargo.toml
+}
+
+build() {
+  BUILD_LIB=$(python -c 'import sys; from distutils.util import get_platform; print("build/lib.%s-%d.%d" % (get_platform(), *sys.version_info[:2]))')
+
+  cd $_pkgname-$pkgver
+  python setup.py build --build-lib=$BUILD_LIB
+}
+
+package() {
+  cd $_pkgname-$pkgver
+  python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1 --skip-build
+
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}
+

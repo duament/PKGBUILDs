@@ -1,0 +1,26 @@
+name: Build python-etebase
+on:
+  push:
+    paths:
+      - 'python-etebase/**'
+      - '.github/workflows/python-etebase.yml'
+
+jobs:
+  job:
+    name: Build python-etebase
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Arch Linux packages
+        id: build
+        uses: duament/build-arch-package@master
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          DIR: $GITHUB_WORKSPACE/python-etebase
