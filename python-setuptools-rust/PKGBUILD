@@ -13,6 +13,8 @@ source=("$_pkgname-$pkgver.tar.gz::https://github.com/PyO3/$_pkgname/archive/v$p
 sha256sums=('0c22494070035f43b8b1578dc28d247e3efaeea401fd67b7d062ebc5ce800786')
 
 build() {
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
+
   cd $_pkgname-$pkgver
   python setup.py build
 }
