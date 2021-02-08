@@ -8,6 +8,7 @@ arch=('any')
 url="https://github.com/PyO3/setuptools-rust"
 license=('MIT')
 depends=('python' 'python-setuptools' 'python-semantic-version' 'python-toml')
+makedepends=('python-setuptools-scm' 'python-wheel')
 source=("$_pkgname-$pkgver.tar.gz::https://github.com/PyO3/$_pkgname/archive/v$pkgver.tar.gz")
 sha256sums=('0c22494070035f43b8b1578dc28d247e3efaeea401fd67b7d062ebc5ce800786')
 
