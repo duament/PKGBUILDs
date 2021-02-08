@@ -3,48 +3,41 @@
 # Contributor: David Runge <dave@sleepmap.de>
 
 pkgname=etesync-dav
-pkgver=0.30.1
+pkgver=0.30.7
 pkgrel=1
 pkgdesc="A CalDAV and CardDAV adapter for EteSync"
 arch=('any')
-url="https://pypi.python.org/pypi/${pkgname}/"
+url="https://github.com/etesync/etesync-dav"
 license=('GPL')
 depends=('python-appdirs'
          'python-etesync'
-         'radicale'
+         'python-etebase'
+         'radicale>=3.0.0'
          'python-flask'
          'python-flask-wtf'
 )
-replaces=('python-radicale-storage-etesync')
 makedepends=('python-setuptools')
-source=("https://pypi.org/packages/source/e/${pkgname}/${pkgname}-${pkgver}.tar.gz"
-        "etesync-dav.service"
+replaces=('python-radicale-storage-etesync')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/etesync/$pkgname/archive/v$pkgver.tar.gz"
         "exclude_tests.patch")
-sha512sums=('2665ee3bb73c3e5cbf5876b3873ac54c881286723d97c4c93bb58c2c4e86ed9f1237550cdb66b065d17bd6f908e656e84753d03aeefe6c5604099fb0bc33be43'
-            '5c1db1c8f25d696ef7163bb5615840a8b4cdbdc02e00ca25f007e9eb8750849fd29d70d5873f22c403cef0e992809ededaa0fd4619c243b3515ec1cb6ac35722'
-            '0ca6cc6c2bfdf3a4ecb37b70738f2046961b4655a6332709cd7c82e01496d34cd6bca66aadfc11020548f321b4cf45abc7721c64004704bd16cfba7d700a013c')
+sha256sums=('8fba000073e9287b09955937f3f7325123974d5a53e3449adafce1ebf1d07fc7'
+            '8650312b1e673705e1dba6554aae7b32d4f68055fdd3c8fc1076c22b9c640079')
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
   patch --forward --strip=1 --input="$srcdir/exclude_tests.patch"
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd $pkgname-$pkgver
   python setup.py build
 }
 
 package() {
-  cd "${pkgname}-${pkgver}"
-  python setup.py install --skip-build \
-    --optimize=1 \
-    --prefix=/usr \
-    --root="${pkgdir}"
-  install -t "${pkgdir}/usr/share/doc/${pkgname}" \
-    -vDm644 {DESCRIPTION.rst,README.md}
-
-# FIXME: replace with the one in the etesync-dav repo once released
-  mkdir -p "${pkgdir}/usr/lib/systemd/user/"
-  install -Dm644 ../etesync-dav.service "${pkgdir}/usr/lib/systemd/user/"
+  cd $pkgname-$pkgver
+  python setup.py install --root=$pkgdir --optimize=1 --skip-build
+  install -Dm644 DESCRIPTION.rst $pkgdir/usr/share/doc/$pkgname/DESCRIPTION.rst
+  install -Dm644 README.md $pkgdir/usr/share/doc/$pkgname/README.md
+  install -Dm644 examples/systemd-user/etesync-dav.service $pkgdir/usr/lib/systemd/user/etesync-dav.service
 }
 
