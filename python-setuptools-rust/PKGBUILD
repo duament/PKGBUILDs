@@ -1,5 +1,6 @@
 
 pkgname=python-setuptools-rust
+_pkgname=setuptools-rust
 pkgver=0.11.6
 pkgrel=1
 pkgdesc="Setuptools plugin for Rust support"
@@ -7,15 +8,15 @@ arch=('any')
 url="https://github.com/PyO3/setuptools-rust"
 license=('MIT')
 depends=('python' 'python-setuptools' 'python-semantic-version' 'python-toml')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/PyO3/setuptools-rust/archive/v$pkgver.tar.gz")
+source=("$_pkgname-$pkgver.tar.gz::https://github.com/PyO3/$_pkgname/archive/v$pkgver.tar.gz")
 sha256sums=('0c22494070035f43b8b1578dc28d247e3efaeea401fd67b7d062ebc5ce800786')
 
 build() {
-  cd $pkgname-$pkgver
+  cd $_pkgname-$pkgver
   python setup.py build
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $_pkgname-$pkgver
   python setup.py install --root="$pkgdir" --optimize=1 --skip-build
 }
