@@ -42,10 +42,20 @@ jobs:
           cd ..
       - run: |
           cd nginx-mainline-mod-fancyindex
-          full_version=$(pacman -Si nginx-mainline | grep -m 1 '^Version' | awk '{print $NF}')
-          version=${full_version%-*}
-          sed -i -e "s/^\s*_nginxver=.*$/_nginxver=$version/g" PKGBUILD
-          git add PKGBUILD
-          git commit -m "sbupdate-git: $ver" || true
-          git push
+          nginxver=$(grep -m1 '_nginxver=' PKGBUILD)
+          nginxver=${nginxver#*=}
+          new_nginxver=$(pacman -Si nginx-mainline | grep -m 1 '^Version' | awk '{print $NF}')
+          new_nginxver=${new_nginxver%-*}
+          if [[ $nginxver != $new_nginxver ]]
+          then
+            sed -i -e "s/^\s*_nginxver=.*$/_nginxver=$version/g" PKGBUILD
+            rel_line=$(grep -m1 'pkgrel=' PKGBUILD)
+            rel=$((${rel_line#*=} + 1))
+            sed -i -e "s/^\s*pkgrel=.*$/pkgrel=$rel/g" PKGBUILD
+            sudo -u user makepkg -d -o --noprepare
+            ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
+            git add PKGBUILD
+            git commit -m "nginx-mainline-mod-fancyindex: $ver-$rel (nginx $new_nginxver)" || true
+            git push
+          fi
           cd ..
