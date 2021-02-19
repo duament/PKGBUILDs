@@ -15,7 +15,7 @@ jobs:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
       - run: |
-          pacman -Syu --noconfirm --noprogressbar --needed base-devel git sudo
+          pacman -Syu --noconfirm --noprogressbar --needed base-devel git sudo pacman-contrib
           git config --global user.name duament
           git config --global user.email 30264485+duament@users.noreply.github.com
       - uses: actions/checkout@v2
@@ -52,7 +52,7 @@ jobs:
             rel_line=$(grep -m1 'pkgrel=' PKGBUILD)
             rel=$((${rel_line#*=} + 1))
             sed -i -e "s/^\s*pkgrel=.*$/pkgrel=$rel/g" PKGBUILD
-            sudo -u user makepkg -d -o --noprepare
+            sudo -u user updpkgsums
             ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
             git add PKGBUILD
             git commit -m "nginx-mainline-mod-fancyindex: $ver-$rel (nginx $new_nginxver)" || true
