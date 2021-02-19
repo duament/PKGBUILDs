@@ -48,7 +48,7 @@ jobs:
           new_nginxver=${new_nginxver%-*}
           if [[ $nginxver != $new_nginxver ]]
           then
-            sed -i -e "s/^\s*_nginxver=.*$/_nginxver=$version/g" PKGBUILD
+            sed -i -e "s/^\s*_nginxver=.*$/_nginxver=$new_nginxver/g" PKGBUILD
             rel_line=$(grep -m1 'pkgrel=' PKGBUILD)
             rel=$((${rel_line#*=} + 1))
             sed -i -e "s/^\s*pkgrel=.*$/pkgrel=$rel/g" PKGBUILD
