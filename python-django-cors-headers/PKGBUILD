@@ -1,0 +1,32 @@
+# Maintainer: Duama <admin@duama.top>
+
+pkgname=python-django-cors-headers
+_name=${pkgname#python-}
+pkgver=3.7.0
+pkgrel=1
+pkgdesc="Django app for handling the server headers required for Cross-Origin Resource Sharing (CORS)"
+arch=('any')
+url="https://github.com/adamchainz/django-cors-headers"
+license=('MIT')
+depends=('python-django')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest' 'python-pytest-django' 'python-pytest-randomly')
+source=("$_name-$pkgver.tar.gz::https://github.com/adamchainz/$_name/archive/$pkgver.tar.gz")
+sha256sums=('9780dd071d5ce37113d2f030a08c02ef9580e78c8eef54b1aeac76adfcc8f766')
+
+build() {
+    cd $_name-$pkgver
+    python setup.py build
+}
+
+check() {
+    cd $_name-$pkgver
+    PYTHONPATH="$PWD:$PWD/src" pytest
+}
+
+package() {
+    cd $_name-$pkgver
+    python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+    install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
