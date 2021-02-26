@@ -1,0 +1,52 @@
+# Maintainer: Duama <admin@duama.top>
+# Contributor: Pierre-Alain TORET <pierre-alain.toret@protonmail.com>
+# Contributor: Tom Hacohen <tom@stosb.com>
+
+pkgname=etebase-server
+_name=server
+pkgver=0.7.0
+pkgrel=1
+pkgdesc="A self-hostable Etebase (EteSync 2.0) server"
+arch=(any)
+depends=('python-django'
+         'python-django-rest-framework'
+         'python-drf-nested-routers'
+         'python-django-cors-headers'
+         'python-pynacl'
+         'python-msgpack'
+         'python-pytz')
+optdepends=('postgresql: storage backend'
+            'python-daphne: application container')
+url="https://github.com/etesync/server"
+license=('AGPL3')
+backup=('etc/etebase-server/etebase-server.ini')
+source=("$_name-$pkgver.tar.gz::https://github.com/etesync/$_name/archive/v$pkgver.tar.gz"
+        "$pkgname.sysusers"
+        "$pkgname.tmpfiles")
+sha256sums=('19b54e4b119d69f13c885ddac7e04507b1cbb5a9c10e283738d69b2862205842'
+            'd42e2518975363aed2900fe4e03eefade98ed9b6f8b8140fd1eddc081d4081e7'
+            '34dbbec7401276231ec2988196bc1fbd97f1a7c0592e5da930ca7fe896af4884')
+
+prepare() {
+    cd $_name-$pkgver
+    sed -i "s@secret.txt@/var/lib/$pkgname/secret.txt@;s@db.sqlite3@/var/lib/$pkgname/db.sqlite3@" $pkgname.ini.example
+}
+
+package() {
+    install -Dm644 $pkgname.sysusers "$pkgdir"/usr/lib/sysusers.d/$pkgname.conf
+    install -Dm644 $pkgname.tmpfiles "$pkgdir"/usr/lib/tmpfiles.d/$pkgname.conf
+
+    cd $_name-$pkgver
+
+    install -Dm644 $pkgname.ini.example "$pkgdir"/etc/$pkgname/$pkgname.ini
+
+    install -Dm644 README.md "$pkgdir"/usr/share/doc/$pkgname/README.md
+    cp -r example-configs "$pkgdir"/usr/share/doc/$pkgname/
+
+    install -Dm755 manage.py "$pkgdir"/usr/lib/$pkgname/manage.py
+    cp -r django_etebase "$pkgdir"/usr/lib/$pkgname
+    #cp -r etebase_fastapi "$pkgdir"/usr/lib/$pkgname
+    cp -r etebase_server "$pkgdir"/usr/lib/$pkgname
+    cp -r myauth "$pkgdir"/usr/lib/$pkgname
+    cp -r templates "$pkgdir"/usr/lib/$pkgname
+}
