@@ -1,0 +1,31 @@
+# Maintainer: Duama <admin@duama.top>
+
+pkgname=python-drf-nested-routers
+_name=${pkgname#python-}
+pkgver=0.92.5
+pkgrel=1
+pkgdesc="Nested Routers for Django Rest Framework "
+arch=('any')
+url="https://github.com/alanjds/drf-nested-routers"
+license=('Apache')
+depends=('python-django' 'python-django-rest-framework')
+makedepends=('python-setuptools')
+checkdepends=('python-pytest' 'python-pytest-django' 'python-pytest-cov' 'python-ipdb')
+source=("$_name-$pkgver.tar.gz::https://github.com/alanjds/$_name/archive/v$pkgver.tar.gz")
+sha256sums=('92c4dc6ab93a2586d2159bc15e2b2f7e547b2f6b40277b7feecc235e71944f45')
+
+build() {
+    cd $_name-$pkgver
+    python setup.py build
+}
+
+check() {
+    cd $_name-$pkgver
+    python runtests.py --nolint
+}
+
+package() {
+    cd $_name-$pkgver
+    python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+}
+
