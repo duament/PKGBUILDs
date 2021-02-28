@@ -1,6 +1,7 @@
+# Maintainer: Duama <admin@duama.top>
 
 pkgname=yacd
-pkgver=0.2.14
+pkgver=0.2.15
 pkgrel=1
 pkgdesc="Yet Another Clash Dashboard"
 arch=('any')
@@ -8,23 +9,31 @@ url="https://github.com/haishanh/yacd"
 license=('MIT')
 depends=()
 makedepends=('yarn')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/haishanh/yacd/archive/v$pkgver.tar.gz"
+source=("$pkgname-$pkgver.tar.gz::https://github.com/haishanh/$pkgname/archive/v$pkgver.tar.gz"
         "no_web_fonts.patch")
-sha256sums=('113b11cec0f6596f9d943388b23137218c915cd9a450b51a193baf394ea58e65'
-            'e13da8de5d6ef7b4b16f5dceb9d512608311afd8fe0d201535fb5ed090d0b57f')
+sha256sums=('ba6aa13e55dbdd60223c5d76e480070bb9ba6e9cd06d295a3e3bc7dbfedf9c6b'
+            'ae083966fbdf4ea2630e0b2c2a7119a1fafed0355a3109202a02d468b3d1c866')
 
 prepare() {
     cd $pkgname-$pkgver
-    patch --forward --strip=1 --input="$srcdir/no_web_fonts.patch"
-    yarn install
+
+    sed -i '/"fontsource-open-sans":/d' package.json
+    sed -i '/"fontsource-roboto-mono":/d' package.json
+
+    patch --forward --strip=1 --input="$srcdir"/no_web_fonts.patch
+
+    yarn install --frozen-lockfile
 }
 
 build() {
     cd $pkgname-$pkgver
+
     yarn run build
 }
 
 package() {
-    install -dm755 $pkgdir/usr/share/webapps/$pkgname
-    install -Dm644 $pkgname-$pkgver/public/* $pkgdir/usr/share/webapps/$pkgname/
+    cd $pkgname-$pkgver
+
+    install -dm755 "$pkgdir"/usr/share/webapps/$pkgname
+    install -Dm644 public/* "$pkgdir"/usr/share/webapps/$pkgname/
 }
