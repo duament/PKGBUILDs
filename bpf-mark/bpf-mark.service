@@ -1,0 +1,11 @@
+[Unit]
+Description=A bpf program that set fwmark
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bpftool prog load /usr/lib/bpf-prog/mark.o /sys/fs/bpf/mark type cgroup/sock
+ExecStop=/usr/bin/rm -f /sys/fs/bpf/mark
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

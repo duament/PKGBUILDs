@@ -1,0 +1,23 @@
+# Maintainer: Duama <admin@duama.top>
+
+pkgname=bpf-mark
+pkgver=1
+pkgrel=1
+pkgdesc="A BPF program that set fwmark"
+arch=('x86_64' 'aarch64')
+license=('GPL2')
+depends=()
+makedepends=('clang')
+source=($pkgname.c
+        $pkgname.service)
+sha256sums=('a290fcea3dc06b33275314ec040da93d8ba2c355eeb76f1d72e9b8ecf14aacb8'
+            '6aaace321c3981deb3d4116f2914fc858ccc1d481469a395dbdbc1a92088f37a')
+
+build() {
+    clang -O2 -target bpf -c $pkgname.c -o mark.o
+}
+
+package() {
+    install -Dm644 mark.o "$pkgdir"/usr/lib/bpf-prog/mark.o
+    install -Dm644 $pkgname.service "$pkgdir"/usr/lib/systemd/system/$pkgname.service
+}

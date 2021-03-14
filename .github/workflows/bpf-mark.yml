@@ -1,0 +1,26 @@
+name: Build bpf-mark
+on:
+  push:
+    paths:
+      - 'bpf-mark/**'
+      - '.github/workflows/bpf-mark.yml'
+
+jobs:
+  job:
+    name: Build bpf-mark
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Arch Linux packages
+        id: build
+        uses: duament/build-arch-package@master
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          DIR: $GITHUB_WORKSPACE/bpf-mark
