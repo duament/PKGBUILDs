@@ -6,8 +6,8 @@ pkgrel=1
 pkgdesc="A BPF program that set fwmark"
 arch=('x86_64' 'aarch64')
 license=('GPL2')
-depends=()
-makedepends=('clang')
+depends=('bpf')
+makedepends=('clang' 'libbpf')
 source=($pkgname.c
         $pkgname.service)
 sha256sums=('a290fcea3dc06b33275314ec040da93d8ba2c355eeb76f1d72e9b8ecf14aacb8'
