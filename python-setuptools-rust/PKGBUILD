@@ -1,7 +1,7 @@
 
 pkgname=python-setuptools-rust
 _pkgname=setuptools-rust
-pkgver=0.12.0
+pkgver=0.12.1
 pkgrel=1
 pkgdesc="Setuptools plugin for Rust support"
 arch=('any')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('python' 'python-setuptools' 'python-semantic-version' 'python-toml')
 makedepends=('python-setuptools-scm' 'python-wheel')
 source=("$_pkgname-$pkgver.tar.gz::https://github.com/PyO3/$_pkgname/archive/v$pkgver.tar.gz")
-sha256sums=('84a8e7a56093a68a40fd37e9061c28696e59261107bf86790a01273a6af981a6')
+sha256sums=('4275bda80ff7f1f02c3ea7ae1179c24dbb642fd39152b786cbc4b1d3e9af8d4b')
 
 build() {
   export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
