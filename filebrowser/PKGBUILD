@@ -1,0 +1,48 @@
+# Maintainer: Duama <admin@duama.top>
+
+pkgname=filebrowser
+pkgver=2.14.1
+pkgrel=1
+pkgdesc='Web File Browser'
+arch=(x86_64)
+url='https://github.com/filebrowser/filebrowser'
+license=(Apache)
+depends=(glibc)
+makedepends=(npm go go.rice)
+source=("$pkgname-$pkgver.tar.gz::https://github.com/filebrowser/$pkgname/archive/v$pkgver.tar.gz")
+sha256sums=('efaff07445bda9181a849ec22affdc0dbda9fc9953ec0ab3dcaec53c004db08c')
+
+prepare() {
+  cd $pkgname-$pkgver
+
+  # Front end
+  cd frontend
+  npm install
+  cd ..
+}
+
+build() {
+  cd $pkgname-$pkgver
+
+  # Front end
+  cd frontend
+  npm run build
+  cd ..
+
+  # Back end
+  cd http
+  rice embed-go
+  cd ..
+
+  export CGO_CPPFLAGS="$CPPFLAGS"
+  export CGO_CFLAGS="$CFLAGS"
+  export CGO_CXXFLAGS="$CXXFLAGS"
+  export CGO_LDFLAGS="$LDFLAGS"
+  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+  go build .
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -Dm755 filebrowser "$pkgdir"/usr/bin/filebrowser
+}
