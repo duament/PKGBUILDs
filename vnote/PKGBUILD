@@ -1,0 +1,54 @@
+# Maintainer: Duama <admin@duama.top>
+# Contributor: Fabio 'Lolix' Loli <fabio.loli@disroot.org> -> https://github.com/FabioLolix
+# Contributor: erk <v at erk dot io>
+
+pkgname=vnote
+pkgver=3.0.0_beta.10
+_pkgver=3.0.0-beta.10
+_vtextedit=c86f8bfbf6140b67290ca9229f1145dba5bfc092
+pkgrel=1
+pkgdesc="A pleasant note-taking platform."
+arch=(x86_64 i686 arm armv6h armv7h aarch64)
+url='https://github.com/vnotex/vnote'
+license=(LGPL3)
+depends=(qt5-base qt5-webengine qt5-svg syntax-highlighting)
+makedepends=()
+source=("$pkgname-$pkgver.tar.gz::https://github.com/vnotex/$pkgname/archive/refs/tags/v$_pkgver.tar.gz"
+        "vtextedit-$_vtextedit.tar.gz::https://github.com/vnotex/vtextedit/archive/$_vtextedit.tar.gz"
+        "rcc-dir.patch"
+        "vnote-font.patch"
+        "vtextedit-font.patch"
+        "use-system-KSyntaxHighlighting.patch")
+sha256sums=('41bcbff2d116267c603a13a2e5a767871d04776e5611a22c0efc6547f910b3bf'
+            'c404038314a1d9c5b96c9ece5333f346de4ef74c82a2e2d4361689299b0a2fe3'
+            '9d94cb20dc61e0463acb10951e1b1828a9c516574b7482aa0db0a4ab4ae1998c'
+            '43f52335ef4e9c29bbcfdb450a29a41307fa6ced7e22b63354b0e9b3a397a3a7'
+            '2bfa47d4008751ba55326141d0c44924596fa0f78bdd6cec4e3809b2812c4ed2'
+            '7a122ee36fb569d4555d39d7ccf67e31469f99457912007cb738470ff0d186a4')
+
+prepare() {
+    cd $pkgname-$_pkgver
+
+    rmdir libs/vtextedit
+    ln -s "$srcdir"/vtextedit-$_vtextedit libs/vtextedit
+
+    patch --forward --strip=1 --input="$srcdir"/rcc-dir.patch
+    patch --forward --strip=1 --input="$srcdir"/vnote-font.patch
+
+    cd ../vtextedit-$_vtextedit
+    patch --forward --strip=1 --input="$srcdir"/use-system-KSyntaxHighlighting.patch
+    patch --forward --strip=1 --input="$srcdir"/vtextedit-font.patch
+}
+
+build() {
+    cd $pkgname-$_pkgver
+
+    qmake
+    make
+}
+
+package() {
+    cd $pkgname-$_pkgver
+
+    make INSTALL_ROOT="$pkgdir" install
+}

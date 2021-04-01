@@ -1,0 +1,359 @@
+diff --git a/src/data/extra/themes/moonlight/highlight.css b/src/data/extra/themes/moonlight/highlight.css
+index f06ec2b8..55770884 100644
+--- a/src/data/extra/themes/moonlight/highlight.css
++++ b/src/data/extra/themes/moonlight/highlight.css
+@@ -10,7 +10,7 @@ code[class*="language-"],
+ pre[class*="language-"] {
+     color: #ccc;
+     background: none;
+-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
++    font-family: monospace;
+     font-size: 1em;
+     text-align: left;
+     white-space: pre;
+diff --git a/src/data/extra/themes/moonlight/interface.qss b/src/data/extra/themes/moonlight/interface.qss
+index 6a32e096..310ba954 100644
+--- a/src/data/extra/themes/moonlight/interface.qss
++++ b/src/data/extra/themes/moonlight/interface.qss
+@@ -11,7 +11,7 @@
+ QWidget {
+     color: @widgets#qwidget#fg;
+     background-color: @widgets#qwidget#bg;
+-    font-family: "冬青黑体", "YaHei Consolas Hybrid", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", "Dengxian", "等线体", "STXihei", "华文细黑", "Liberation Sans", "Droid Sans", "NSimSun", "新宋体", "SimSun", "宋体", "Helvetica", "sans-serif", "Tahoma", "Arial", "Verdana", "Geneva", "Georgia", "Times New Roman";
++    font-family: "sans-serif";
+ }
+ 
+ QWidget[DialogCentralWidget="true"] {
+diff --git a/src/data/extra/themes/moonlight/text-editor.theme b/src/data/extra/themes/moonlight/text-editor.theme
+index 086d81ce..e09b628c 100644
+--- a/src/data/extra/themes/moonlight/text-editor.theme
++++ b/src/data/extra/themes/moonlight/text-editor.theme
+@@ -7,7 +7,7 @@
+     "editor-styles" : {
+         "Text" : {
+             "//comment" : "Support a list of fonts separated by ,",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New",
++            "font-family" : monospace,
+             "font-size" : 12,
+             "text-color" : "#ccd1d8",
+             "background-color" : "#333842",
+@@ -67,7 +67,7 @@
+     "markdown-editor-styles" : {
+         "Text" : {
+             "//comment" : "Support a list of fonts separated by ,",
+-            "font-family" : "冬青黑体, YaHei Consolas Hybrid, Microsoft YaHei, 微软雅黑, Microsoft YaHei UI, WenQuanYi Micro Hei, 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, Liberation Sans, Droid Sans, NSimSun, 新宋体, SimSun, 宋体, Verdana, Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Times New Roman",
++            "font-family" : sans-serif,
+             "font-size" : 12,
+             "text-color" : "#ccd1d8",
+             "background-color" : "#333842",
+@@ -134,7 +134,7 @@
+         },
+         "CODE" : {
+             "text-color" : "#98c379",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "EMPH" : {
+             "italic" : true
+@@ -156,12 +156,12 @@
+         },
+         "VERBATIM" : {
+             "text-color" : "#98c379",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "//comment" : "Please modify the syntax highlight theme as well if you change this",
+         "FENCEDCODEBLOCK" : {
+             "text-color" : "#98c379",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "BLOCKQUOTE" : {
+             "text-color" : "#7482ce"
+@@ -178,18 +178,18 @@
+         },
+         "INLINEEQUATION" : {
+             "text-color" : "#4db6ac",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "DISPLAYFORMULA" : {
+             "text-color" : "#4db6ac",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "MARK" : {
+             "text-color" : "#d7dae0",
+             "background-color" : "#898900"
+         },
+         "TABLE" : {
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "TABLEBORDER" : {
+             "text-color" : "#e06c75",
+diff --git a/src/data/extra/themes/moonlight/web.css b/src/data/extra/themes/moonlight/web.css
+index 8237b6c6..73f4391a 100644
+--- a/src/data/extra/themes/moonlight/web.css
++++ b/src/data/extra/themes/moonlight/web.css
+@@ -1,6 +1,6 @@
+ body {
+     margin: 0 auto;
+-    font-family: "Segoe UI", Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", "冬青黑体", "YaHei Consolas Hybrid", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", Dengxian, "等线体", STXihei, "华文细黑", "Liberation Sans", "Droid Sans", NSimSun, "新宋体", SimSun, "宋体";
++    font-family: sans-serif;
+     color: #ccd1d8;
+     line-height: 1.5;
+     padding: 15px;
+@@ -96,7 +96,7 @@ pre {
+ }
+ 
+ code {
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
++    font-family: monospace;
+     color: #98c379;
+     word-break: break-word;
+ }
+@@ -108,7 +108,7 @@ pre code {
+     color: #98c379;
+     background-color: #2d323b;
+     line-height: 1.5;
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
++    font-family: monospace;
+     white-space: pre;
+     -moz-tab-size: 4;
+     -o-tab-size: 4;
+diff --git a/src/data/extra/themes/native/highlight.css b/src/data/extra/themes/native/highlight.css
+index 78433a67..7117186c 100644
+--- a/src/data/extra/themes/native/highlight.css
++++ b/src/data/extra/themes/native/highlight.css
+@@ -11,7 +11,7 @@ pre[class*="language-"] {
+     color: black;
+     background: none;
+     text-shadow: 0 1px white;
+-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
++    font-family: monospace;
+     font-size: 1em;
+     text-align: left;
+     white-space: pre;
+diff --git a/src/data/extra/themes/native/text-editor.theme b/src/data/extra/themes/native/text-editor.theme
+index 6c36fa76..5504ce1d 100644
+--- a/src/data/extra/themes/native/text-editor.theme
++++ b/src/data/extra/themes/native/text-editor.theme
+@@ -7,7 +7,7 @@
+     "editor-styles" : {
+         "Text" : {
+             "//comment" : "Support a list of fonts separated by ,",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New",
++            "font-family" : "monospace",
+             "font-size" : 12
+         },
+         "CursorLine" : {
+@@ -63,7 +63,7 @@
+     "markdown-editor-styles" : {
+         "Text" : {
+             "//comment" : "Support a list of fonts separated by ,",
+-            "font-family" : "冬青黑体, YaHei Consolas Hybrid, Microsoft YaHei, 微软雅黑, Microsoft YaHei UI, WenQuanYi Micro Hei, 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, Liberation Sans, Droid Sans, NSimSun, 新宋体, SimSun, 宋体, Verdana, Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Times New Roman",
++            "font-family" : "sans-serif",
+             "font-size" : 12
+         }
+     },
+@@ -126,7 +126,7 @@
+         },
+         "CODE" : {
+             "text-color" : "#8e24aa",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : "monospace"
+         },
+         "EMPH" : {
+             "italic" : true
+@@ -148,12 +148,12 @@
+         },
+         "VERBATIM" : {
+             "text-color" : "#673ab7",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : "monospace"
+         },
+         "//comment" : "Please modify the syntax highlight theme as well if you change this",
+         "FENCEDCODEBLOCK" : {
+             "text-color" : "#673ab7",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : "monospace"
+         },
+         "BLOCKQUOTE" : {
+             "text-color" : "#00af00"
+@@ -170,18 +170,18 @@
+         },
+         "INLINEEQUATION" : {
+             "text-color" : "#00897b",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : "monospace"
+         },
+         "DISPLAYFORMULA" : {
+             "text-color" : "#00897b",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : "monospace"
+         },
+         "MARK" : {
+             "text-color" : "#222222",
+             "background-color" : "#ffff76"
+         },
+         "TABLE" : {
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : "monospace"
+         },
+         "TABLEBORDER" : {
+             "text-color" : "#d33682",
+diff --git a/src/data/extra/themes/native/web.css b/src/data/extra/themes/native/web.css
+index acd83588..9a6eb76f 100644
+--- a/src/data/extra/themes/native/web.css
++++ b/src/data/extra/themes/native/web.css
+@@ -1,6 +1,6 @@
+ body {
+     margin: 0 auto;
+-    font-family: "Segoe UI", Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", "冬青黑体", "YaHei Consolas Hybrid", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", Dengxian, "等线体", STXihei, "华文细黑", "Liberation Sans", "Droid Sans", NSimSun, "新宋体", SimSun, "宋体";
++    font-family: sans-serif;
+     color: #222222;
+     line-height: 1.5;
+     padding: 15px;
+@@ -91,7 +91,7 @@ pre {
+ }
+ 
+ code {
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
++    font-family: monospace;
+     color: #8E24AA;
+     word-break: break-word;
+ }
+@@ -103,7 +103,7 @@ pre code {
+     color: #222222;
+     background-color: #E0E0E0;
+     line-height: 1.5;
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
++    font-family: monospace;
+     white-space: pre;
+     -moz-tab-size: 4;
+     -o-tab-size: 4;
+diff --git a/src/data/extra/themes/pure/highlight.css b/src/data/extra/themes/pure/highlight.css
+index 4d980eb1..daf4b30e 100644
+--- a/src/data/extra/themes/pure/highlight.css
++++ b/src/data/extra/themes/pure/highlight.css
+@@ -10,7 +10,7 @@ code[class*="language-"],
+ pre[class*="language-"] {
+     color: black;
+     background: none;
+-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
++    font-family: monospace;
+     font-size: 1em;
+     text-align: left;
+     white-space: pre;
+diff --git a/src/data/extra/themes/pure/interface.qss b/src/data/extra/themes/pure/interface.qss
+index 6a32e096..310ba954 100644
+--- a/src/data/extra/themes/pure/interface.qss
++++ b/src/data/extra/themes/pure/interface.qss
+@@ -11,7 +11,7 @@
+ QWidget {
+     color: @widgets#qwidget#fg;
+     background-color: @widgets#qwidget#bg;
+-    font-family: "冬青黑体", "YaHei Consolas Hybrid", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", "Dengxian", "等线体", "STXihei", "华文细黑", "Liberation Sans", "Droid Sans", "NSimSun", "新宋体", "SimSun", "宋体", "Helvetica", "sans-serif", "Tahoma", "Arial", "Verdana", "Geneva", "Georgia", "Times New Roman";
++    font-family: "sans-serif";
+ }
+ 
+ QWidget[DialogCentralWidget="true"] {
+diff --git a/src/data/extra/themes/pure/text-editor.theme b/src/data/extra/themes/pure/text-editor.theme
+index 882282dd..01d7f782 100644
+--- a/src/data/extra/themes/pure/text-editor.theme
++++ b/src/data/extra/themes/pure/text-editor.theme
+@@ -7,7 +7,7 @@
+     "editor-styles" : {
+         "Text" : {
+             "//comment" : "Support a list of fonts separated by ,",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New",
++            "font-family" : monospace,
+             "font-size" : 12,
+             "text-color" : "#222222",
+             "background-color" : "#f5f5f5",
+@@ -67,7 +67,7 @@
+     "markdown-editor-styles" : {
+         "Text" : {
+             "//comment" : "Support a list of fonts separated by ,",
+-            "font-family" : "冬青黑体, YaHei Consolas Hybrid, Microsoft YaHei, 微软雅黑, Microsoft YaHei UI, WenQuanYi Micro Hei, 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, Liberation Sans, Droid Sans, NSimSun, 新宋体, SimSun, 宋体, Verdana, Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Times New Roman",
++            "font-family" : "sans-serif",
+             "font-size" : 12,
+             "text-color" : "#222222",
+             "background-color" : "#f5f5f5",
+@@ -134,7 +134,7 @@
+         },
+         "CODE" : {
+             "text-color" : "#8e24aa",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "EMPH" : {
+             "italic" : true
+@@ -156,12 +156,12 @@
+         },
+         "VERBATIM" : {
+             "text-color" : "#673ab7",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "//comment" : "Please modify the syntax highlight theme as well if you change this",
+         "FENCEDCODEBLOCK" : {
+             "text-color" : "#673ab7",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "BLOCKQUOTE" : {
+             "text-color" : "#00af00"
+@@ -178,18 +178,18 @@
+         },
+         "INLINEEQUATION" : {
+             "text-color" : "#00897b",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "DISPLAYFORMULA" : {
+             "text-color" : "#00897b",
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "MARK" : {
+             "text-color" : "#222222",
+             "background-color" : "#ffff76"
+         },
+         "TABLE" : {
+-            "font-family" : "YaHei Consolas Hybrid, Consolas, Monaco, Andale Mono, Monospace, Courier New"
++            "font-family" : monospace
+         },
+         "TABLEBORDER" : {
+             "text-color" : "#d33682",
+diff --git a/src/data/extra/themes/pure/web.css b/src/data/extra/themes/pure/web.css
+index 281849d9..8622b05b 100644
+--- a/src/data/extra/themes/pure/web.css
++++ b/src/data/extra/themes/pure/web.css
+@@ -1,6 +1,6 @@
+ body {
+     margin: 0 auto;
+-    font-family: "Segoe UI", Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", "冬青黑体", "YaHei Consolas Hybrid", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", Dengxian, "等线体", STXihei, "华文细黑", "Liberation Sans", "Droid Sans", NSimSun, "新宋体", SimSun, "宋体";
++    font-family: sans-serif;
+     color: #222222;
+     line-height: 1.5;
+     padding: 15px;
+@@ -91,7 +91,7 @@ pre {
+ }
+ 
+ code {
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
++    font-family: monospace;
+     color: #8e24aa;
+     word-break: break-word;
+ }
+@@ -103,7 +103,7 @@ pre code {
+     color: #222222;
+     background-color: #e0e0e0;
+     line-height: 1.5;
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
++    font-family: monospace;
+     white-space: pre;
+     -moz-tab-size: 4;
+     -o-tab-size: 4;

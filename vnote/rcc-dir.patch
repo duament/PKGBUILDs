@@ -1,0 +1,29 @@
+diff --git a/src/core/configmgr.cpp b/src/core/configmgr.cpp
+index 2cf10fa3..176e83dc 100644
+--- a/src/core/configmgr.cpp
++++ b/src/core/configmgr.cpp
+@@ -159,8 +159,7 @@ void ConfigMgr::checkAppConfig()
+ 
+     // Load extra data.
+     splash->showMessage("Loading extra resource data");
+-    const QString extraRcc(PathUtils::concatenateFilePath(QCoreApplication::applicationDirPath(),
+-                                                          QStringLiteral("vnote_extra.rcc")));
++    const QString extraRcc(QStringLiteral("/usr/share/vnote/vnote_extra.rcc"));
+     bool ret = QResource::registerResource(extraRcc);
+     if (!ret) {
+         Exception::throwOne(Exception::Type::FailToReadFile,
+diff --git a/src/src.pro b/src/src.pro
+index fd716c69..f077538d 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -131,8 +131,8 @@ unix:!macx {
+ 
+     target.path = $${BINDIR}
+ 
+-    extraresource.path = $${BINDIR}
+-    extraresource.extra = cp $${SRC_DESTDIR}/vnote_extra.rcc $(INSTALL_ROOT)$${BINDIR}/vnote_extra.rcc
++    extraresource.path = $${DATADIR}/vnote
++    extraresource.extra = cp $${SRC_DESTDIR}/vnote_extra.rcc $(INSTALL_ROOT)$${DATADIR}/vnote/vnote_extra.rcc
+ 
+     INSTALLS += target desktop icon16 icon32 icon48 icon64 icon128 icon256 iconsvg
+     INSTALLS += extraresource

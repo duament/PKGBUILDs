@@ -1,0 +1,71 @@
+diff --git a/src/editor/editor.pro b/src/editor/editor.pro
+index 3b8c7ef..a0e7907 100644
+--- a/src/editor/editor.pro
++++ b/src/editor/editor.pro
+@@ -1,4 +1,4 @@
+-QT += core gui widgets network svg
++QT += core gui widgets network svg KSyntaxHighlighting
+ 
+ TARGET = VTextEdit
+ TEMPLATE = lib
+@@ -32,15 +32,6 @@ macx: {
+         include/vtextedit/vtexteditor.h
+     FRAMEWORK_HEADERS.path = Headers/vtextedit
+     QMAKE_BUNDLE_DATA += FRAMEWORK_HEADERS
+-
+-    # Process VSyntaxHighlighting framework
+-    sh_lib_name = VSyntaxHighlighting
+-    sh_lib_dir = $${OUT_PWD}/../libs/syntax-highlighting
+-    sh_lib_full_name = $${sh_lib_name}.framework/Versions/1/$${sh_lib_name}
+-    lib_target = $${TARGET}.framework/Versions/1/$${TARGET}
+-    QMAKE_POST_LINK = \
+-        install_name_tool -add_rpath $${sh_lib_dir} $${lib_target} && \
+-        install_name_tool -change $${sh_lib_full_name} @rpath/$${sh_lib_full_name} $${lib_target}
+ }
+ 
+ DEFINES += VTEXTEDIT_LIB
+@@ -65,7 +56,6 @@ INCLUDEPATH += $$PWD
+ INCLUDEPATH += $$PWD/include
+ 
+ LIBS_FOLDER = $$PWD/../libs
+-include($$LIBS_FOLDER/syntax-highlighting/syntax-highlighting_export.pri)
+ include($$LIBS_FOLDER/katevi/katevi_export.pri)
+ include($$LIBS_FOLDER/peg-markdown-highlight/peg-markdown-highlight_export.pri)
+ 
+diff --git a/src/editor/texteditor/syntaxhighlighter.cpp b/src/editor/texteditor/syntaxhighlighter.cpp
+index c220091..21c620b 100644
+--- a/src/editor/texteditor/syntaxhighlighter.cpp
++++ b/src/editor/texteditor/syntaxhighlighter.cpp
+@@ -33,21 +33,6 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *p_doc,
+         qDebug() << "use definition" << def.name() << "to highlight for syntax" << p_syntax;
+         setDefinition(def);
+     }
+-
+-    KSyntaxHighlighting::Theme th;
+-    if (!p_theme.isEmpty()) {
+-        // Check if it is a file path.
+-        if (p_theme.contains(QRegularExpression(QStringLiteral("[\\\\/]")))) {
+-            th = repository()->themeFromFile(p_theme);
+-        } else {
+-            th = repository()->theme(p_theme);
+-        }
+-    }
+-    if (!th.isValid()) {
+-        th = repository()->defaultTheme();
+-    }
+-    setTheme(th);
+-    qDebug() << "use syntax highlighter theme" << th.name() << p_theme;
+ }
+ 
+ void SyntaxHighlighter::highlightBlock(const QString &p_text)
+diff --git a/src/libs/libs.pro b/src/libs/libs.pro
+index ce9eb35..7f96833 100644
+--- a/src/libs/libs.pro
++++ b/src/libs/libs.pro
+@@ -1,6 +1,5 @@
+ TEMPLATE = subdirs
+ 
+ SUBDIRS += \
+-    syntax-highlighting \
+     katevi \
+     peg-markdown-highlight
