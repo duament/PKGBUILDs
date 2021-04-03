@@ -9,40 +9,44 @@ url='https://github.com/filebrowser/filebrowser'
 license=(Apache)
 depends=(glibc)
 makedepends=(npm go go.rice)
-source=("$pkgname-$pkgver.tar.gz::https://github.com/filebrowser/$pkgname/archive/v$pkgver.tar.gz")
-sha256sums=('efaff07445bda9181a849ec22affdc0dbda9fc9953ec0ab3dcaec53c004db08c')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz"
+        "$pkgname@.service")
+sha256sums=('efaff07445bda9181a849ec22affdc0dbda9fc9953ec0ab3dcaec53c004db08c'
+            '31ec64a8e47b33dac958caaf9bedb1c3d3052194007f770d4c05228d4301bddc')
 
 prepare() {
-  cd $pkgname-$pkgver
+    cd $pkgname-$pkgver
 
-  # Front end
-  cd frontend
-  npm install
-  cd ..
+    # Front end
+    cd frontend
+    npm install
+    cd ..
 }
 
 build() {
-  cd $pkgname-$pkgver
+    cd $pkgname-$pkgver
 
-  # Front end
-  cd frontend
-  npm run build
-  cd ..
+    # Front end
+    cd frontend
+    npm run build
+    cd ..
 
-  # Back end
-  cd http
-  rice embed-go
-  cd ..
+    # Back end
+    cd http
+    rice embed-go
+    cd ..
 
-  export CGO_CPPFLAGS="$CPPFLAGS"
-  export CGO_CFLAGS="$CFLAGS"
-  export CGO_CXXFLAGS="$CXXFLAGS"
-  export CGO_LDFLAGS="$LDFLAGS"
-  export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
-  go build .
+    export CGO_CPPFLAGS="$CPPFLAGS"
+    export CGO_CFLAGS="$CFLAGS"
+    export CGO_CXXFLAGS="$CXXFLAGS"
+    export CGO_LDFLAGS="$LDFLAGS"
+    export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+    go build .
 }
 
 package() {
-  cd $pkgname-$pkgver
-  install -Dm755 filebrowser "$pkgdir"/usr/bin/filebrowser
+    cd $pkgname-$pkgver
+
+    install -Dm755 $pkgname "$pkgdir"/usr/bin/$pkgname
+    install -Dm755 $pkgname@.service "$pkgdir"/usr/lib/systemd/system/$pkgname@.service
 }
