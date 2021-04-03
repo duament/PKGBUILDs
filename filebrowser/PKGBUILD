@@ -45,8 +45,6 @@ build() {
 }
 
 package() {
-    cd $pkgname-$pkgver
-
-    install -Dm755 $pkgname "$pkgdir"/usr/bin/$pkgname
+    install -Dm755 $pkgname-$pkgver/$pkgname "$pkgdir"/usr/bin/$pkgname
     install -Dm755 $pkgname@.service "$pkgdir"/usr/lib/systemd/system/$pkgname@.service
 }
