@@ -1,39 +1,36 @@
-# Maintainer: Morgenstern <charles [at] charlesbwise [dot] com>
+# Maintainer: Duama <admin@duama.top>
+# Contributor: Morgenstern <charles [at] charlesbwise [dot] com>
 # Contributor: jkl <jkl@johnluebs.com>
 # Contributor: hdhoang <arch@hdhoang.space>
 
 pkgname=nginx-mainline-mod-fancyindex
+_modname="ngx-${pkgname#nginx-mainline-mod-}"
 pkgver=0.5.1
-pkgrel=5
-_modname="${pkgname#nginx-mainline-mod-}"
-_nginxver=1.19.9
+pkgrel=6
 pkgdesc="Fancy indexes module for the nginx web server"
 arch=('x86_64')
 url="https://github.com/aperezdc/ngx-fancyindex"
-license=('BSD')
-depends=("nginx-mainline>=${_nginxver}")
-source=(https://nginx.org/download/nginx-$_nginxver.tar.gz{,.asc}
-	"${pkgname}-${pkgver}.tar.gz::https://github.com/aperezdc/ngx-$_modname/archive/v$pkgver.tar.gz")
-validpgpkeys=('B0F4253373F8F6F510D42178520A9993A1C052F8') # Maxim Dounin <mdounin@mdounin.ru>
-sha256sums=('2e35dff06a9826e8aca940e9e8be46b7e4b12c19a48d55bfc2dc28fc9cc7d841'
-            'SKIP'
-            '238bd5521d6c9b55780e6871339a7ea79508b9a6758ad2fa4451f2dfe26d94c9')
+license=('custom')
+depends=('nginx-mainline')
+makedepends=('nginx-mainline-src')
+source=("https://github.com/aperezdc/$_modname/archive/v$pkgver/$_modname-$pkgver.tar.gz")
+sha256sums=('238bd5521d6c9b55780e6871339a7ea79508b9a6758ad2fa4451f2dfe26d94c9')
+
+prepare() {
+    cp -r /usr/src/nginx .
+}
 
 build() {
-  cd "nginx-$_nginxver"
-  _opts=$(nginx -V 2>&1 | grep 'configure arguments' | sed -r 's/^[^:]+: //')
-  IFS=$'\n' _opts=( $(xargs -n1 <<< "$_opts") )
-  ./configure "${_opts[@]}" \
-	--add-dynamic-module=../ngx-"$_modname-$pkgver"
-  make modules
+    cd nginx
+    ./configure --with-compat --add-dynamic-module=../$_modname-$pkgver
+    make modules
 }
 
 package() {
-  cd "nginx-$_nginxver/objs"
-  for _mod in *.so; do
-	install -D $_mod "$pkgdir/usr/lib/nginx/modules/$_mod"
-  done
-  install -Dm644 "$srcdir/ngx-$_modname-$pkgver/LICENSE" \
-	"$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-}
+    install -Dm644 $_modname-$pkgver/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 
+    cd nginx/objs
+    for mod in ngx_*.so; do
+	install -Dm755 $mod "$pkgdir"/usr/lib/nginx/modules/$mod
+    done
+}
