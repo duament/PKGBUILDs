@@ -59,3 +59,21 @@ jobs:
             git push
           fi
           cd ..
+      - run: |
+          cd nginx-mainline-mod-brotli
+          nginxver=$(cat nginxver)
+          new_nginxver=$(pacman -Si nginx-mainline | grep -m 1 '^Version' | awk '{print $NF}')
+          new_nginxver=${new_nginxver%-*}
+          if [[ $nginxver != $new_nginxver ]]
+          then
+            echo $new_nginxver > nginxver
+            rel_line=$(grep -m1 'pkgrel=' PKGBUILD)
+            rel=$((${rel_line#*=} + 1))
+            sed -i -e "s/^\s*pkgrel=.*$/pkgrel=$rel/g" PKGBUILD
+            sudo -u user updpkgsums
+            ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
+            git add PKGBUILD
+            git commit -m "nginx-mainline-mod-brotli: $ver-$rel (nginx $new_nginxver)" || true
+            git push
+          fi
+          cd ..
