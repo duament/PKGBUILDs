@@ -2,7 +2,7 @@
 
 pkgname=go.rice
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Go package that makes working with resources such as html,js,css,images,templates, etc very easy."
 arch=('x86_64')
 url="https://github.com/GeertJohan/go.rice"
@@ -17,10 +17,10 @@ build() {
     export CGO_CFLAGS="$CFLAGS"
     export CGO_CXXFLAGS="$CXXFLAGS"
     export CGO_LDFLAGS="$LDFLAGS"
-    export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
+    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
 
     cd $pkgname-$pkgver
-    go build -o rice/rice ./rice
+    go build -ldflags="-linkmode=external -extldflags=$LDFLAGS" -o rice/rice ./rice
 }
 
 check() {
