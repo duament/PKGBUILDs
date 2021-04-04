@@ -53,7 +53,7 @@ jobs:
             sed -i -e "s/^\s*pkgrel=.*$/pkgrel=$rel/g" PKGBUILD
             sudo -u user updpkgsums
             ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
-            git add PKGBUILD
+            git add .
             git commit -m "nginx-mainline-mod-fancyindex: $ver-$rel (nginx $new_nginxver)" || true
             git push
           fi
@@ -71,7 +71,7 @@ jobs:
             sed -i -e "s/^\s*pkgrel=.*$/pkgrel=$rel/g" PKGBUILD
             sudo -u user updpkgsums
             ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
-            git add PKGBUILD
+            git add .
             git commit -m "nginx-mainline-mod-brotli: $ver-$rel (nginx $new_nginxver)" || true
             git push
           fi
