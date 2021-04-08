@@ -1,0 +1,33 @@
+# Maintainer: Duama <admin@duama.top>
+
+pkgname=nginx-mainline-mod-dav-ext
+_modname=nginx-dav-ext-module
+pkgver=3.0.0
+pkgrel=1
+pkgdesc="nginx WebDAV PROPFIND,OPTIONS,LOCK,UNLOCK support"
+arch=('x86_64')
+url="https://github.com/arut/nginx-dav-ext-module"
+license=('custom')
+depends=('nginx-mainline' 'libxml2' 'libxslt')
+makedepends=('nginx-mainline-src')
+source=("https://github.com/arut/$_modname/archive/v$pkgver/$_modname-$pkgver.tar.gz")
+sha256sums=('d2499d94d82d4e4eac8425d799e52883131ae86a956524040ff2fd230ef9f859')
+
+prepare() {
+    cp -r /usr/src/nginx .
+}
+
+build() {
+    cd nginx
+    ./configure --with-compat --add-dynamic-module=../$_modname-$pkgver
+    make modules
+}
+
+package() {
+    install -Dm644 $_modname-$pkgver/LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+    cd nginx/objs
+    for mod in ngx_*.so; do
+	install -Dm755 $mod "$pkgdir"/usr/lib/nginx/modules/$mod
+    done
+}
