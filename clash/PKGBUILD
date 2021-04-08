@@ -4,8 +4,8 @@
 # Contributor: Luke Yue <lukedyue@gmail.com>
 
 pkgname=clash
-pkgver=1.4.2
-pkgrel=2
+pkgver=1.5.0
+pkgrel=1
 pkgdesc="A rule based proxy in Go."
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
 url="https://github.com/Dreamacro/clash"
@@ -18,7 +18,7 @@ source=("$pkgname.conf"
         "https://github.com/Dreamacro/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
 sha256sums=('a1e0b93ea4f746c6d8c8d54e798397e2b6488bc1ab2c59cd064952e71344fa9b'
             '290bd393315805e327247db1706f346c1315e37dfcf90f8bc88687791aa98bc4'
-            '7bd3708a071c4f78788dff96b9a4b187196976fe4079253f4af3d9db98145f1c')
+            '766fa180c0d95cdbaaf0383c0f1f5b9129643a30166155cdab30922ebfbbee7d')
 
 build() {
     export CGO_CPPFLAGS="$CPPFLAGS"
