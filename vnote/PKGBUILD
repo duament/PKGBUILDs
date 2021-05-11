@@ -2,10 +2,9 @@
 # Contributor: Fabio 'Lolix' Loli <fabio.loli@disroot.org> -> https://github.com/FabioLolix
 # Contributor: erk <v at erk dot io>
 
-_pkgver=3.0.0-beta.11
-_vtextedit=c86f8bfbf6140b67290ca9229f1145dba5bfc092
+_vtextedit=9b9aa9dd1d8ebec02daee23cb26d0b12ae00cf69
 pkgname=vnote
-pkgver=${_pkgver//-/_}
+pkgver=3.0.1
 pkgrel=1
 pkgdesc="A pleasant note-taking platform."
 arch=(x86_64 i686 arm armv6h armv7h aarch64)
@@ -13,21 +12,21 @@ url='https://github.com/vnotex/vnote'
 license=(LGPL3)
 depends=(qt5-base qt5-webengine qt5-svg syntax-highlighting)
 makedepends=()
-source=("$pkgname-$pkgver.tar.gz::https://github.com/vnotex/$pkgname/archive/refs/tags/v$_pkgver.tar.gz"
+source=("$pkgname-$pkgver.tar.gz::https://github.com/vnotex/$pkgname/archive/refs/tags/v$pkgver.tar.gz"
         "vtextedit-$_vtextedit.tar.gz::https://github.com/vnotex/vtextedit/archive/$_vtextedit.tar.gz"
         "rcc-dir.patch"
         "vnote-font.patch"
         "vtextedit-font.patch"
         "use-system-KSyntaxHighlighting.patch")
-sha256sums=('c1b04b97092827cf3f654ab8f11aae3133dde00839466ddd2c822027e5bd118c'
-            'c404038314a1d9c5b96c9ece5333f346de4ef74c82a2e2d4361689299b0a2fe3'
+sha256sums=('5db566ab2858c9b14256aa7131aeb51d9036730fcbfa278f46a59f7fd8a2a409'
+            'd44b385bda3d4f8710a26047c02a09304d65a6635f3863a041b5dc3fd772631e'
             '9d94cb20dc61e0463acb10951e1b1828a9c516574b7482aa0db0a4ab4ae1998c'
             '43f52335ef4e9c29bbcfdb450a29a41307fa6ced7e22b63354b0e9b3a397a3a7'
             '2bfa47d4008751ba55326141d0c44924596fa0f78bdd6cec4e3809b2812c4ed2'
             '7a122ee36fb569d4555d39d7ccf67e31469f99457912007cb738470ff0d186a4')
 
 prepare() {
-    cd $pkgname-$_pkgver
+    cd $pkgname-$pkgver
 
     rmdir libs/vtextedit
     ln -s "$srcdir"/vtextedit-$_vtextedit libs/vtextedit
@@ -41,14 +40,14 @@ prepare() {
 }
 
 build() {
-    cd $pkgname-$_pkgver
+    cd $pkgname-$pkgver
 
     qmake
     make
 }
 
 package() {
-    cd $pkgname-$_pkgver
+    cd $pkgname-$pkgver
 
     make INSTALL_ROOT="$pkgdir" install
 }
