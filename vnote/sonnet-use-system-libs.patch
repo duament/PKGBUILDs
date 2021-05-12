@@ -1,0 +1,15 @@
+diff --git a/src/plugins/hunspell/hunspell_export.pri b/src/plugins/hunspell/hunspell_export.pri
+index 7c24a9c..ab1ec92 100644
+--- a/src/plugins/hunspell/hunspell_export.pri
++++ b/src/plugins/hunspell/hunspell_export.pri
+@@ -13,8 +13,8 @@ HEADERS += \
+            $$PWD/hunspelldict.h \
+            $$PWD/config-hunspell.h
+ 
+-LIBS_FOLDER = $$PWD/../../../../../libs
+-include($$LIBS_FOLDER/hunspell/hunspell_export.pri)
++CONFIG += link_pkgconfig
++PKGCONFIG += hunspell
+ 
+ DEFINES += SONNETUI_EXPORT=""
+ DEFINES += SONNETCORE_EXPORT=""

@@ -1,15 +1,23 @@
 diff --git a/src/editor/editor.pro b/src/editor/editor.pro
-index 3b8c7ef..a0e7907 100644
+index 0625867..da4d47e 100644
 --- a/src/editor/editor.pro
 +++ b/src/editor/editor.pro
-@@ -1,4 +1,4 @@
--QT += core gui widgets network svg
-+QT += core gui widgets network svg KSyntaxHighlighting
+@@ -1,9 +1,13 @@
+ QT += core gui widgets network svg
++QT += KSyntaxHighlighting
  
  TARGET = VTextEdit
  TEMPLATE = lib
-@@ -32,15 +32,6 @@ macx: {
-         include/vtextedit/vtexteditor.h
+ CONFIG += shared dll
+ 
++CONFIG += link_pkgconfig
++PKGCONFIG += hunspell
++
+ TRANSLATIONS += data/translations/vtextedit_zh_CN.ts
+ 
+ macx: {
+@@ -12,15 +16,6 @@ macx: {
+     FRAMEWORK_HEADERS.files = $$files(include/vtextedit/*.h)
      FRAMEWORK_HEADERS.path = Headers/vtextedit
      QMAKE_BUNDLE_DATA += FRAMEWORK_HEADERS
 -
@@ -24,19 +32,19 @@ index 3b8c7ef..a0e7907 100644
  }
  
  DEFINES += VTEXTEDIT_LIB
-@@ -65,7 +56,6 @@ INCLUDEPATH += $$PWD
+@@ -46,7 +41,6 @@ INCLUDEPATH += $$PWD
  INCLUDEPATH += $$PWD/include
  
  LIBS_FOLDER = $$PWD/../libs
 -include($$LIBS_FOLDER/syntax-highlighting/syntax-highlighting_export.pri)
  include($$LIBS_FOLDER/katevi/katevi_export.pri)
  include($$LIBS_FOLDER/peg-markdown-highlight/peg-markdown-highlight_export.pri)
- 
+ include($$LIBS_FOLDER/sonnet/src/core/core_export.pri)
 diff --git a/src/editor/texteditor/syntaxhighlighter.cpp b/src/editor/texteditor/syntaxhighlighter.cpp
-index c220091..21c620b 100644
+index d761862..4ddfa11 100644
 --- a/src/editor/texteditor/syntaxhighlighter.cpp
 +++ b/src/editor/texteditor/syntaxhighlighter.cpp
-@@ -33,21 +33,6 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *p_doc,
+@@ -35,21 +35,6 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *p_doc,
          qDebug() << "use definition" << def.name() << "to highlight for syntax" << p_syntax;
          setDefinition(def);
      }
@@ -59,13 +67,14 @@ index c220091..21c620b 100644
  
  void SyntaxHighlighter::highlightBlock(const QString &p_text)
 diff --git a/src/libs/libs.pro b/src/libs/libs.pro
-index ce9eb35..7f96833 100644
+index 870befe..9f362cb 100644
 --- a/src/libs/libs.pro
 +++ b/src/libs/libs.pro
-@@ -1,6 +1,5 @@
+@@ -1,7 +1,6 @@
  TEMPLATE = subdirs
  
  SUBDIRS += \
 -    syntax-highlighting \
      katevi \
-     peg-markdown-highlight
+     peg-markdown-highlight \
+     sonnet-data \
