@@ -13,7 +13,7 @@ optdepends=('rust: Rust language support'
             'go-tools: Go language support'
             'typescript: TypeScript language support'
             'omnisharp-roslyn-http-bin: C# language support')
-makedepends=('cmake' 'git' 'make' 'boost')
+makedepends=('cmake' 'git' 'make' 'boost' 'python-setuptools')
 source=('git+https://github.com/ycm-core/YouCompleteMe.git'
         'git+https://github.com/ycm-core/ycmd.git'
         'setup_ycm.py'
