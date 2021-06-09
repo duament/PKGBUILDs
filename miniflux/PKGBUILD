@@ -2,7 +2,7 @@
 
 pkgname=miniflux
 _pkgname=v2
-pkgver=2.0.30
+pkgver=2.0.31
 pkgrel=1
 pkgdesc="Minimalist and opinionated feed reader"
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
@@ -14,7 +14,7 @@ makedepends=('go')
 backup=('etc/miniflux.conf')
 source=("https://github.com/miniflux/$_pkgname/archive/$pkgver/$_pkgname-$pkgver.tar.gz"
         "miniflux.service")
-sha256sums=('b5328c99e176439c44647cfec48fd6b5557b18060d0c93871bf8cbbac98e9594'
+sha256sums=('5fba02222c632063c77451cff3ad5118c10bc082e42f83ea09654c7a0c9e8870'
             '72ed11252df54cc281a21e3d6ce08fc2cf2e36b1db1540a050bad47f2c6c8c4c')
 
 build() {
