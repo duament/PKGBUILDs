@@ -3,7 +3,7 @@
 # Contributor: David Runge <dave@sleepmap.de>
 
 pkgname=etesync-dav
-pkgver=0.30.7
+pkgver=0.30.8
 pkgrel=1
 pkgdesc="A CalDAV and CardDAV adapter for EteSync"
 arch=('any')
@@ -18,23 +18,18 @@ depends=('python-appdirs'
 )
 makedepends=('python-setuptools')
 replaces=('python-radicale-storage-etesync')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/etesync/$pkgname/archive/v$pkgver.tar.gz"
-        "exclude_tests.patch")
-sha256sums=('8fba000073e9287b09955937f3f7325123974d5a53e3449adafce1ebf1d07fc7'
-            '8650312b1e673705e1dba6554aae7b32d4f68055fdd3c8fc1076c22b9c640079')
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch --forward --strip=1 --input="$srcdir/exclude_tests.patch"
-}
+source=("$pkgname-$pkgver.tar.gz::https://github.com/etesync/$pkgname/archive/v$pkgver.tar.gz")
+sha256sums=('78582c0671b739ac140a378aeaec888c8c8e74132344903f4cd750345a73f5df')
 
 build() {
   cd $pkgname-$pkgver
+
   python setup.py build
 }
 
 package() {
   cd $pkgname-$pkgver
+
   python setup.py install --root=$pkgdir --optimize=1 --skip-build
   install -Dm644 DESCRIPTION.rst $pkgdir/usr/share/doc/$pkgname/DESCRIPTION.rst
   install -Dm644 README.md $pkgdir/usr/share/doc/$pkgname/README.md
