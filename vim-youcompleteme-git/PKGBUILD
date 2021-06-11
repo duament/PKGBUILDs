@@ -2,7 +2,7 @@
 
 pkgname=vim-youcompleteme-git
 pkgver=r2813.4df6f35f.r2942.df3d7eb6
-pkgrel=1
+pkgrel=2
 pkgdesc="A code-completion engine for Vim"
 arch=('x86_64')
 url='https://ycm-core.github.io/YouCompleteMe/'
