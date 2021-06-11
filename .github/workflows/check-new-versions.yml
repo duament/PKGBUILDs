@@ -27,18 +27,26 @@ jobs:
       - run: |
           cd vim-youcompleteme-git
           sudo -u user makepkg -d -o --noprepare
-          ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
-          git add PKGBUILD
-          git commit -m "vim-youcompleteme-git: $ver" || true
-          git push
+          if ! git diff --quiet
+          then
+            ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
+            sed -i -e "s/^\s*pkgrel=.*$/pkgrel=1/g" PKGBUILD
+            git add PKGBUILD
+            git commit -m "vim-youcompleteme-git: $ver"
+            git push
+          fi
           cd ..
       - run: |
           cd sbupdate-git
           sudo -u user makepkg -d -o --noprepare
-          ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
-          git add PKGBUILD
-          git commit -m "sbupdate-git: $ver" || true
-          git push
+          if ! git diff --quiet
+          then
+            ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
+            sed -i -e "s/^\s*pkgrel=.*$/pkgrel=1/g" PKGBUILD
+            git add PKGBUILD
+            git commit -m "sbupdate-git: $ver"
+            git push
+          fi
           cd ..
       - run: |
           cd nginx-mainline-mod-fancyindex
