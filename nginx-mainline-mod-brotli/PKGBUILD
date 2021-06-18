@@ -4,7 +4,7 @@
 pkgname=nginx-mainline-mod-brotli
 _modname="ngx_${pkgname#nginx-mainline-mod-}"
 pkgver=1.0.0rc
-pkgrel=5
+pkgrel=6
 pkgdesc="Brotli compression filter module for nginx-mainline"
 arch=('x86_64')
 depends=('nginx-mainline' 'brotli')
