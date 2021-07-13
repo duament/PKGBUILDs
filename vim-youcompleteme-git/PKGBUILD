@@ -2,72 +2,84 @@
 
 pkgname=vim-youcompleteme-git
 pkgver=r2815.c83c240e.r2949.268f2d39
-pkgrel=1
+pkgrel=2
 pkgdesc="A code-completion engine for Vim"
 arch=('x86_64')
 url='https://ycm-core.github.io/YouCompleteMe/'
 license=('GPL3')
 groups=('vim-plugins')
-depends=('boost-libs' 'python' 'vim' 'clang' 'python-bottle' 'python-jedi' 'python-regex' 'python-requests' 'python-requests-futures' 'python-waitress' 'python-watchdog')
-optdepends=('rust: Rust language support'
-            'go-tools: Go language support'
+depends=('abseil-cpp' 'python' 'vim' 'clang' 'python-bottle' 'python-regex' 'python-jedi' 'python-numpydoc' 'python-watchdog')
+optdepends=('rust-analyzer: Rust language support'
+            'gopls: Go language support'
             'typescript: TypeScript language support'
-            'omnisharp-roslyn-http-bin: C# language support')
-makedepends=('cmake' 'git' 'make' 'boost' 'python-setuptools')
+            'nodejs-tern: JavaScript language support'
+            'java-environment: Java language support'
+            'jdtls: Java language support'
+            'omnisharp-roslyn: C# language support')
+makedepends=('cmake' 'git' 'pybind11' 'python-setuptools' 'jq' 'moreutils')
 source=('git+https://github.com/ycm-core/YouCompleteMe.git'
         'git+https://github.com/ycm-core/ycmd.git'
         'setup_ycm.py'
-        'setup_ycmd.py'
-        'ycm_path.patch'
-        'ycmd_path.patch')
+        'setup_ycmd.py')
 sha256sums=('SKIP'
             'SKIP'
             '3b349c9e86e0468c603e4c395825c628158584eb08eb9c28a6c5cc39a2fc2357'
-            'e6104a99863138e29c0bdd0aa12b5118685018452790252e8980331d0328e28c'
-            'b23c677b0bdbcb12ac3554ba34257a1e033b19a5e5419d8b13636b292ec30383'
-            'c3438e8fdc1890f459080d64466f1f038d361d57c51e0d23b356f7181d9f24d4')
+            'e6104a99863138e29c0bdd0aa12b5118685018452790252e8980331d0328e28c')
 
 pkgver() {
-    cd "$srcdir/YouCompleteMe"
+    cd "$srcdir"/YouCompleteMe
     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 
     printf .
 
-    cd "$srcdir/ycmd"
+    cd "$srcdir"/ycmd
     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 prepare() {
-    cp "$srcdir/setup_ycm.py" "$srcdir/YouCompleteMe/python/setup.py"
-    cp "$srcdir/setup_ycmd.py" "$srcdir/ycmd/setup.py"
-    cp "$srcdir/ycmd/CORE_VERSION" "$srcdir/ycmd/ycmd/CORE_VERSION"
+    cp "$srcdir"/ycmd/CORE_VERSION "$srcdir"/ycmd/ycmd/
 
-    cd "$srcdir/YouCompleteMe"
+    cd "$srcdir"/YouCompleteMe
+    sed -i '/^DIR_OF_YCMD =/!b;n;/^[\t ]/d' python/ycm/paths.py
+    sed -i "s/^DIR_OF_YCMD =.*$/import ycmd\nDIR_OF_YCMD = os.path.normpath( os.path.join( ycmd.__file__, '..', '..' ) )/g" python/ycm/paths.py
 
-    patch --forward --strip=1 --input="$srcdir/ycm_path.patch"
-
-    cd "$srcdir/ycmd"
-    patch --forward --strip=1 --input="$srcdir/ycmd_path.patch"
+    cd "$srcdir"/ycmd
+    rm -rf cpp/pybind11
+    rm -rf cpp/llvm
+    rm -rf third_party
+    sed -i 's/^ROOT_DIR =.*$/ROOT_DIR = os.path.dirname( __file__ )/g' ycmd/utils.py
+    sed -i "s/^LIBCLANG_DIR =.*$/LIBCLANG_DIR = '\/usr\/lib'/g" ycmd/utils.py
+    jq '.clangd_binary_path = "/usr/bin/clangd" |
+        .rust_toolchain_root = "/usr" |
+        .gopls_binary_path = "/usr/bin/gopls" |
+        .tsserver_binary_path = "/usr/bin/tsserver" |
+        .java_jdtls_workspace_root_path = "/tmp" |
+        .java_binary_path = "/usr/bin/java" |
+        .roslyn_binary_path = "/opt/omnisharp-roslyn/OmniSharp.exe" |
+        .mono_binary_path = "/usr/bin/mono"' ycmd/default_settings.json | sponge ycmd/default_settings.json
 }
 
 build() {
-    cd "$srcdir/YouCompleteMe/python"
-    python setup.py build
+    cd "$srcdir"/YouCompleteMe/python
+    python "$srcdir"/setup_ycm.py build
 
-    cd "$srcdir/ycmd"
-    cmake -G "Unix Makefiles" -DUSE_PYTHON2=OFF -DUSE_SYSTEM_LIBCLANG="ON" -DUSE_SYSTEM_BOOST=ON . "cpp"
-    make
-    python setup.py build
+    cd "$srcdir"/ycmd
+    cmake -DUSE_CLANG_COMPLETER=ON -DUSE_SYSTEM_LIBCLANG=ON -DUSE_SYSTEM_ABSEIL=ON "cpp"
+    make ycm_core
+    python "$srcdir"/setup_ycmd.py build
 }
 
 package() {
-    install -Dm 644 "$srcdir/YouCompleteMe/autoload/youcompleteme.vim" -t "$pkgdir/usr/share/vim/vimfiles/autoload"
-    install -Dm 644 "$srcdir/YouCompleteMe/doc/youcompleteme.txt" -t "$pkgdir/usr/share/vim/vimfiles/doc"
-    install -Dm 644 "$srcdir/YouCompleteMe/plugin/youcompleteme.vim" -t "$pkgdir/usr/share/vim/vimfiles/plugin"
+    cd "$srcdir"/YouCompleteMe/autoload
+    find . -type f -exec install -Dm644 {} "$pkgdir"/usr/share/vim/vimfiles/autoload/{} \;
+    cd "$srcdir"/YouCompleteMe/doc
+    find . -type f -exec install -Dm644 {} "$pkgdir"/usr/share/vim/vimfiles/doc/{} \;
+    cd "$srcdir"/YouCompleteMe/plugin
+    find . -type f -exec install -Dm644 {} "$pkgdir"/usr/share/vim/vimfiles/plugin/{} \;
 
-    cd "$srcdir/YouCompleteMe/python"
-    python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+    cd "$srcdir"/YouCompleteMe/python
+    python "$srcdir"/setup_ycm.py install --root="$pkgdir" --optimize=1 --skip-build
 
-    cd "$srcdir/ycmd"
-    python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+    cd "$srcdir"/ycmd
+    python "$srcdir"/setup_ycmd.py install --root="$pkgdir" --optimize=1 --skip-build
 }
