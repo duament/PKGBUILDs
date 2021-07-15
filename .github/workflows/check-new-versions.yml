@@ -37,6 +37,18 @@ jobs:
           fi
           cd ..
       - run: |
+          cd vim-indent-guides-git
+          sudo -u user makepkg -d -o --noprepare
+          if ! git diff --quiet
+          then
+            ver=$(cat PKGBUILD | grep -m1 pkgver= | cut -d '=' -f2)
+            sed -i -e "s/^\s*pkgrel=.*$/pkgrel=1/g" PKGBUILD
+            git add PKGBUILD
+            git commit -m "vim-indent-guides-git: $ver"
+            git push
+          fi
+          cd ..
+      - run: |
           cd sbupdate-git
           sudo -u user makepkg -d -o --noprepare
           if ! git diff --quiet

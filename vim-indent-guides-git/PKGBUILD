@@ -1,0 +1,28 @@
+# Maintainer: Duama <admin@duama.top>
+
+pkgname=vim-indent-guides-git
+pkgver=r163.54d889a
+pkgrel=1
+pkgdesc="A Vim plugin for visually displaying indent levels in code"
+arch=('any')
+url='https://github.com/nathanaelkane/vim-indent-guides'
+license=('MIT')
+groups=('vim-plugins')
+depends=('vim')
+makedepends=('git')
+source=('git+https://github.com/nathanaelkane/vim-indent-guides.git')
+sha256sums=('SKIP')
+
+pkgver() {
+    cd "$srcdir"/vim-indent-guides
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+    cd "$srcdir"/vim-indent-guides/autoload
+    find . -type f -exec install -Dm644 {} "$pkgdir"/usr/share/vim/vimfiles/autoload/{} \;
+    cd "$srcdir"/vim-indent-guides/doc
+    find . -type f -exec install -Dm644 {} "$pkgdir"/usr/share/vim/vimfiles/doc/{} \;
+    cd "$srcdir"/vim-indent-guides/plugin
+    find . -type f -exec install -Dm644 {} "$pkgdir"/usr/share/vim/vimfiles/plugin/{} \;
+}
