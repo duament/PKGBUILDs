@@ -1,8 +1,4 @@
 /*
 !/.gitignore
 !/PKGBUILD
-!/clash.conf
 !/clash.service
-!/clash.install
-!/clash-sysusers.conf
-!/clash-tmpfiles.conf

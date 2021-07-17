@@ -4,7 +4,7 @@
 # Contributor: Luke Yue <lukedyue@gmail.com>
 
 pkgname=clash
-pkgver=1.6.0
+pkgver=1.6.5
 pkgrel=1
 pkgdesc="A rule based proxy in Go."
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h' 'aarch64')
@@ -12,13 +12,10 @@ url="https://github.com/Dreamacro/clash"
 license=('GPL3')
 depends=('glibc')
 makedepends=('go')
-backup=("etc/$pkgname.conf")
-source=("$pkgname.conf"
-        "$pkgname.service"
+source=("$pkgname.service"
         "https://github.com/Dreamacro/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('a1e0b93ea4f746c6d8c8d54e798397e2b6488bc1ab2c59cd064952e71344fa9b'
-            '290bd393315805e327247db1706f346c1315e37dfcf90f8bc88687791aa98bc4'
-            '670963bee40fd3edca832a3ead22a92d3fb427ceed05be6c5a111d46a1555330')
+sha256sums=('290bd393315805e327247db1706f346c1315e37dfcf90f8bc88687791aa98bc4'
+            '3b0af8e8c42f077f8cf4fe62c8f0da7b9170c85930680135834bac2f0e46cbce')
 
 build() {
     export CGO_CPPFLAGS="$CPPFLAGS"
@@ -38,6 +35,5 @@ check() {
 
 package() {
     install -Dm755 $pkgname-$pkgver/$pkgname "$pkgdir"/usr/bin/$pkgname
-    install -Dm644 $pkgname.conf "$pkgdir"/etc/$pkgname.conf
     install -Dm644 $pkgname.service "$pkgdir"/usr/lib/systemd/system/$pkgname.service
 }
