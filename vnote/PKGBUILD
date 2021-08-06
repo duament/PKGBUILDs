@@ -5,7 +5,7 @@
 _vtextedit=922084a388e1f135e25297ba84a9d0ca0078ed06
 _sonnet=403863fc499c58677c9b0b25f820d0baa9186a07
 pkgname=vnote
-pkgver=3.5.0
+pkgver=3.5.1
 pkgrel=1
 pkgdesc="A pleasant note-taking platform."
 arch=(x86_64 i686 arm armv6h armv7h aarch64)
@@ -21,7 +21,7 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/vnotex/$pkgname/archive/ref
         "vtextedit-font.patch"
         "vtextedit-use-system-libs.patch"
         "sonnet-use-system-libs.patch")
-sha256sums=('204ba0475f3d6db7e239e867bc34dc224bb8033d7cd487176f2aee001d7f1ef3'
+sha256sums=('01aaab9a150565d4ad738d80cd239323959063742c1c40cb00855ace65d1f193'
             'a730b8d91268b4f4027c0bb9ecf014027dfa9b4df424b622975880e3dfd40062'
             '1f4bd73c17854611e11f73c3ed4206dbc1768b0343f1101bd1449573b04b64d4'
             '9d94cb20dc61e0463acb10951e1b1828a9c516574b7482aa0db0a4ab4ae1998c'
