@@ -4,6 +4,7 @@ on:
     paths:
       - 'git-remote-gcrypt/**'
       - '.github/workflows/git-remote-gcrypt.yml'
+  workflow_dispatch:
 
 jobs:
   job:
@@ -15,7 +16,11 @@ jobs:
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
+      - run: |
+          pacman -Syu --noconfirm --noprogressbar --needed git
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Build Arch Linux packages
         id: build
         uses: duament/build-arch-package@master

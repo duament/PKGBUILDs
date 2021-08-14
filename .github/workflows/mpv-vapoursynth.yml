@@ -4,6 +4,7 @@ on:
     paths:
       - 'mpv-vapoursynth/**'
       - '.github/workflows/mpv-vapoursynth.yml'
+  workflow_dispatch:
 
 jobs:
   job:
@@ -15,7 +16,11 @@ jobs:
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
+      - run: |
+          pacman -Syu --noconfirm --noprogressbar --needed git
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Receive PGP keys
         run: |
           mkdir /gpg_keys
