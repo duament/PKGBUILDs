@@ -1,12 +1,12 @@
 
 pkgname=devtools-duama
-pkgver=1
+pkgver=2
 pkgrel=1
 arch=('any')
 depends=(devtools)
 makedepends=()
 source=(pacman-duama.conf)
-sha256sums=('309570adf116e49e616209e75fd80a18884118196cf3876fb70c613f2efada43')
+sha256sums=('c20c040ca90ad7751f4dcd61c60a164feb35bcfb224e2a4c66afcb964b8096d9')
 
 package() {
     install -dm755 $pkgdir/usr/bin
