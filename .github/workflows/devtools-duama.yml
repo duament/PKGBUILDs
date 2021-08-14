@@ -19,6 +19,8 @@ jobs:
       - run: |
           pacman -Syu --noconfirm --noprogressbar --needed git
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Build Arch Linux packages
         id: build
         uses: duament/build-arch-package@master
