@@ -4,6 +4,7 @@ on:
     paths:
       - 'devtools-duama/**'
       - '.github/workflows/devtools-duama.yml'
+  workflow_dispatch:
 
 jobs:
   job:
