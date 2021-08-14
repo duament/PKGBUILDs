@@ -16,6 +16,8 @@ jobs:
       volumes:
         - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
+      - run: |
+          pacman -Syu --noconfirm --noprogressbar --needed git
       - uses: actions/checkout@v2
       - name: Build Arch Linux packages
         id: build
