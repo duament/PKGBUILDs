@@ -1,0 +1,31 @@
+name: Build python-pdftopng
+on:
+  push:
+    paths:
+      - 'python-pdftopng/**'
+      - '.github/workflows/python-pdftopng.yml'
+  workflow_dispatch:
+
+jobs:
+  job:
+    name: Build python-pdftopng
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - run: |
+          pacman -Syu --noconfirm --noprogressbar --needed git
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Build Arch Linux packages
+        id: build
+        uses: duament/build-arch-package@master
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          DIR: $GITHUB_WORKSPACE/python-pdftopng
