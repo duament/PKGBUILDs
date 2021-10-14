@@ -1,7 +1,7 @@
 # Maintainer: Duama <admin@duama.top>
 
 pkgname=vim-indent-guides-git
-pkgver=r163.54d889a
+pkgver=r165.765084d
 pkgrel=1
 pkgdesc="A Vim plugin for visually displaying indent levels in code"
 arch=('any')
