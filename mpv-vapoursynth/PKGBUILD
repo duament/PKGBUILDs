@@ -5,9 +5,9 @@
 _pkgname=mpv
 pkgname=mpv-vapoursynth
 epoch=1
-_tag='4c9d3669a0f672e6754ac456acd324db570964d3' # git rev-parse v${pkgver}
-pkgver=0.33.1
-pkgrel=2
+_tag='79b4060a573e83ae42d51d995bca1ccf80690997' # git rev-parse v${pkgver}
+pkgver=0.34.0
+pkgrel=1
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 # We link against libraries that are licensed GPLv3 explicitly, so our
@@ -17,11 +17,11 @@ url='https://mpv.io/'
 depends=('alsa-lib' 'libasound.so' 'desktop-file-utils' 'ffmpeg' 'libavcodec.so' 'libavdevice.so'
          'libavfilter.so' 'libavformat.so' 'libavutil.so' 'libswresample.so' 'libswscale.so'
          'glibc' 'hicolor-icon-theme' 'jack' 'libjack.so' 'lcms2' 'liblcms2.so' 'libarchive'
-         'libarchive.so' 'libass' 'libass.so' 'libbluray' 'libbluray.so' 'libcaca' 'libcdio'
-         'libcdio-paranoia' 'libdrm' 'libdvdnav' 'libdvdread' 'libgl' 'libglvnd' 'libegl' 'libgl'
+         'libarchive.so' 'libass' 'libass.so' 'libbluray' 'libbluray.so' 'libcdio'
+         'libcdio-paranoia' 'libdrm' 'libdvdnav' 'libdvdread' 'libegl' 'libgl' 'libglvnd'
          'libjpeg' 'libjpeg.so' 'libplacebo' 'libplacebo.so' 'libpulse' 'libpulse.so'
          'libva' 'libva.so' 'libva-drm.so' 'libva-wayland.so' 'libva-x11.so' 'libvdpau' 'libx11'
-         'libxext' 'libxinerama' 'libxkbcommon' 'libxkbcommon.so' 'libxrandr' 'libxss' 'libxss'
+         'libxext' 'libxinerama' 'libxkbcommon' 'libxkbcommon.so' 'libxrandr' 'libxss'
          'libxv' 'lua52' 'mesa' 'mujs' 'rubberband' 'librubberband.so' 'shaderc'
          'libshaderc_shared.so' 'uchardet' 'vulkan-icd-loader' 'wayland' 'xdg-utils'
          'zlib' 'vapoursynth')
@@ -35,13 +35,6 @@ validpgpkeys=('145077D82501AA20152CACCE8D769208D5E31419') # sfan5 <sfan5@live.de
 source=("git+https://github.com/mpv-player/mpv.git#tag=${_tag}?signed")
 sha256sums=('SKIP')
 
-prepare() {
-  cd ${_pkgname}
-
-  # vo_gpu: placebo: update for upstream API changes
-  git cherry-pick -n 7c4465cefb27d4e0d07535d368febdf77b579566
-}
-
 build() {
   cd ${_pkgname}
 
@@ -53,7 +46,8 @@ build() {
     --enable-libarchive \
     --enable-libmpv-shared \
     --enable-vapoursynth \
-    --disable-build-date
+    --disable-build-date \
+    --disable-caca
 
   waf build
 }
