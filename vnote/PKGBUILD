@@ -2,10 +2,10 @@
 # Contributor: Fabio 'Lolix' Loli <fabio.loli@disroot.org> -> https://github.com/FabioLolix
 # Contributor: erk <v at erk dot io>
 
-_vtextedit=c91929729fdd7b47e067c721d6148c7c3e6f9ced
+_vtextedit=58ad5d96359e2ab3f8f9255bd9194a0ebf1e6798
 _sonnet=403863fc499c58677c9b0b25f820d0baa9186a07
 pkgname=vnote
-pkgver=3.8.1
+pkgver=3.9.0
 pkgrel=1
 pkgdesc="A pleasant note-taking platform."
 arch=(x86_64 i686 arm armv6h armv7h aarch64)
@@ -18,14 +18,16 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/vnotex/$pkgname/archive/ref
         "sonnet-$_sonnet.tar.gz::https://github.com/vnotex/sonnet/archive/$_sonnet.tar.gz"
         "rcc-dir.patch"
         "vnote-font.patch"
+        "vnote-use-system-libs.patch"
         "vtextedit-font.patch"
         "vtextedit-use-system-libs.patch"
         "sonnet-use-system-libs.patch")
-sha256sums=('b20809b57cb9f89d2b8bc636bd95117ced50db22af6bfce9a8aadea2e2a40565'
-            '4b2c432d1a56136895651ff671730d71785d0f5eb2d404e9950697359a3084e0'
+sha256sums=('0168b6f167c5374832baaab4bed30c6088c3fb51afac3c20aa12671c299c6aba'
+            '64a61c88f88d557801695cc9e587b3894b8a738f6158a32ccdff8db87212e334'
             '1f4bd73c17854611e11f73c3ed4206dbc1768b0343f1101bd1449573b04b64d4'
             '9d94cb20dc61e0463acb10951e1b1828a9c516574b7482aa0db0a4ab4ae1998c'
-            'bf37a6f6d1f78f575e0aff493e4f7258329caec702a8d85034a52b151adfa6d3'
+            '40c9cf04d60de6646d0c229e082dc3fa7280d4307c35555844d0da1a169647ae'
+            'b6aa1fa31de0442888c1c089e2189ebb814f3d4aa23b7e815ea35d3569c018c1'
             '2bfa47d4008751ba55326141d0c44924596fa0f78bdd6cec4e3809b2812c4ed2'
             '42c710d372dd14c5bbf9d0640284e689510a39d48e14829da68ac4687b91838d'
             '81be51efa75e73280db45e4575ceedc3ddc8c1cd5caab4ebc179c61176ee6e7e')
@@ -37,6 +39,7 @@ prepare() {
     ln -s "$srcdir"/vtextedit-$_vtextedit libs/vtextedit
 
     patch --forward --strip=1 --input="$srcdir"/rcc-dir.patch
+    patch --forward --strip=1 --input="$srcdir"/vnote-use-system-libs.patch
     patch --forward --strip=1 --input="$srcdir"/vnote-font.patch
 
     cd ../vtextedit-$_vtextedit

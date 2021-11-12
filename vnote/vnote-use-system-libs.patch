@@ -1,0 +1,42 @@
+diff --git a/src/src.pro b/src/src.pro
+index 0b59f535..48a51fcc 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -4,6 +4,7 @@ equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 12): error("requires Qt 5
+ 
+ QT += core gui widgets webenginewidgets webchannel network svg printsupport
+ QT += sql
++QT += KSyntaxHighlighting
+ 
+ CONFIG -= qtquickcompiler
+ 
+@@ -43,8 +44,6 @@ LIBS_FOLDER = $$PWD/../libs
+ 
+ include($$LIBS_FOLDER/vtextedit/src/editor/editor_export.pri)
+ 
+-include($$LIBS_FOLDER/vtextedit/src/libs/syntax-highlighting/syntax-highlighting_export.pri)
+-
+ include($$PWD/utils/utils.pri)
+ 
+ include($$PWD/export/export.pri)
+diff --git a/tests/test_core/test_notebook/test_notebook.pro b/tests/test_core/test_notebook/test_notebook.pro
+index 0f2dc15f..9eea3a11 100644
+--- a/tests/test_core/test_notebook/test_notebook.pro
++++ b/tests/test_core/test_notebook/test_notebook.pro
+@@ -1,6 +1,7 @@
+ include($$PWD/../../common.pri)
+ 
+ QT += sql
++QT += KSyntaxHighlighting
+ 
+ TARGET = test_notebook
+ TEMPLATE = app
+@@ -14,8 +15,6 @@ LIBS_FOLDER = $$PWD/../../../libs
+ 
+ include($$LIBS_FOLDER/vtextedit/src/editor/editor_export.pri)
+ 
+-include($$LIBS_FOLDER/vtextedit/src/libs/syntax-highlighting/syntax-highlighting_export.pri)
+-
+ include($$CORE_FOLDER/core.pri)
+ include($$SRC_FOLDER/widgets/widgets.pri)
+ include($$SRC_FOLDER/utils/utils.pri)

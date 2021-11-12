@@ -1,18 +1,5 @@
-diff --git a/src/data/extra/themes/moonlight/highlight.css b/src/data/extra/themes/moonlight/highlight.css
-index f06ec2b8..55770884 100644
---- a/src/data/extra/themes/moonlight/highlight.css
-+++ b/src/data/extra/themes/moonlight/highlight.css
-@@ -10,7 +10,7 @@ code[class*="language-"],
- pre[class*="language-"] {
-     color: #ccc;
-     background: none;
--    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-+    font-family: monospace;
-     font-size: 1em;
-     text-align: left;
-     white-space: pre;
 diff --git a/src/data/extra/themes/moonlight/interface.qss b/src/data/extra/themes/moonlight/interface.qss
-index ace2a3e7..38d779ee 100644
+index 3e827831..14c23cf2 100644
 --- a/src/data/extra/themes/moonlight/interface.qss
 +++ b/src/data/extra/themes/moonlight/interface.qss
 @@ -11,7 +11,7 @@
@@ -25,7 +12,7 @@ index ace2a3e7..38d779ee 100644
  
  QWidget[DialogCentralWidget="true"] {
 diff --git a/src/data/extra/themes/moonlight/text-editor.theme b/src/data/extra/themes/moonlight/text-editor.theme
-index 086d81ce..65213225 100644
+index ea4ffb92..4ac67167 100644
 --- a/src/data/extra/themes/moonlight/text-editor.theme
 +++ b/src/data/extra/themes/moonlight/text-editor.theme
 @@ -7,7 +7,7 @@
@@ -41,12 +28,12 @@ index 086d81ce..65213225 100644
      "markdown-editor-styles" : {
          "Text" : {
              "//comment" : "Support a list of fonts separated by ,",
--            "font-family" : "冬青黑体, YaHei Consolas Hybrid, Microsoft YaHei, 微软雅黑, Microsoft YaHei UI, WenQuanYi Micro Hei, 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, Liberation Sans, Droid Sans, NSimSun, 新宋体, SimSun, 宋体, Verdana, Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Times New Roman",
+-            "font-family" : "YaHei Consolas Hybrid, 冬青黑体, Microsoft YaHei, 微软雅黑, Microsoft YaHei UI, WenQuanYi Micro Hei, 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, Liberation Sans, Droid Sans, NSimSun, 新宋体, SimSun, 宋体, Verdana, Helvetica, Tahoma, Arial, Geneva, Georgia, Times New Roman",
 +            "font-family" : "sans-serif",
              "font-size" : 12,
              "text-color" : "#ccd1d8",
              "background-color" : "#333842",
-@@ -134,7 +134,7 @@
+@@ -137,7 +137,7 @@
          },
          "CODE" : {
              "text-color" : "#98c379",
@@ -55,7 +42,7 @@ index 086d81ce..65213225 100644
          },
          "EMPH" : {
              "italic" : true
-@@ -156,12 +156,12 @@
+@@ -159,12 +159,12 @@
          },
          "VERBATIM" : {
              "text-color" : "#98c379",
@@ -70,7 +57,7 @@ index 086d81ce..65213225 100644
          },
          "BLOCKQUOTE" : {
              "text-color" : "#7482ce"
-@@ -178,18 +178,18 @@
+@@ -181,18 +181,18 @@
          },
          "INLINEEQUATION" : {
              "text-color" : "#4db6ac",
@@ -93,13 +80,13 @@ index 086d81ce..65213225 100644
          "TABLEBORDER" : {
              "text-color" : "#e06c75",
 diff --git a/src/data/extra/themes/moonlight/web.css b/src/data/extra/themes/moonlight/web.css
-index 893e5432..10bf547e 100644
+index 83226fad..10bf547e 100644
 --- a/src/data/extra/themes/moonlight/web.css
 +++ b/src/data/extra/themes/moonlight/web.css
 @@ -1,6 +1,6 @@
  body {
      margin: 0 auto;
--    font-family: -apple-system, "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", "冬青黑体", "YaHei Consolas Hybrid", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", Dengxian, "等线体", STXihei, "华文细黑", "Liberation Sans", "Droid Sans", NSimSun, "新宋体", SimSun, "宋体", "Apple Color Emoji", "Segoe UI Emoji";
+-    font-family: "YaHei Consolas Hybrid", "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", "冬青黑体", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", Dengxian, "等线体", STXihei, "华文细黑", "Liberation Sans", "Droid Sans", NSimSun, "新宋体", SimSun, "宋体", "Apple Color Emoji", "Segoe UI Emoji";
 +    font-family: sans-serif;
      color: #ccd1d8;
      line-height: 1.5;
@@ -108,7 +95,7 @@ index 893e5432..10bf547e 100644
  }
  
  code {
--    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, "Andale Mono", Monospace, "Courier New";
 +    font-family: monospace;
      color: #98c379;
      word-break: break-word;
@@ -117,26 +104,13 @@ index 893e5432..10bf547e 100644
      color: #98c379;
      background-color: #2d323b;
      line-height: 1.5;
--    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, "Andale Mono", Monospace, "Courier New";
 +    font-family: monospace;
      white-space: pre;
      -moz-tab-size: 4;
      -o-tab-size: 4;
-diff --git a/src/data/extra/themes/native/highlight.css b/src/data/extra/themes/native/highlight.css
-index 78433a67..7117186c 100644
---- a/src/data/extra/themes/native/highlight.css
-+++ b/src/data/extra/themes/native/highlight.css
-@@ -11,7 +11,7 @@ pre[class*="language-"] {
-     color: black;
-     background: none;
-     text-shadow: 0 1px white;
--    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-+    font-family: monospace;
-     font-size: 1em;
-     text-align: left;
-     white-space: pre;
 diff --git a/src/data/extra/themes/native/text-editor.theme b/src/data/extra/themes/native/text-editor.theme
-index 6c36fa76..5504ce1d 100644
+index 088afb1a..5504ce1d 100644
 --- a/src/data/extra/themes/native/text-editor.theme
 +++ b/src/data/extra/themes/native/text-editor.theme
 @@ -7,7 +7,7 @@
@@ -152,7 +126,7 @@ index 6c36fa76..5504ce1d 100644
      "markdown-editor-styles" : {
          "Text" : {
              "//comment" : "Support a list of fonts separated by ,",
--            "font-family" : "冬青黑体, YaHei Consolas Hybrid, Microsoft YaHei, 微软雅黑, Microsoft YaHei UI, WenQuanYi Micro Hei, 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, Liberation Sans, Droid Sans, NSimSun, 新宋体, SimSun, 宋体, Verdana, Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Times New Roman",
+-            "font-family" : "YaHei Consolas Hybrid, 冬青黑体, Microsoft YaHei, 微软雅黑, Microsoft YaHei UI, WenQuanYi Micro Hei, 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, Liberation Sans, Droid Sans, NSimSun, 新宋体, SimSun, 宋体, Verdana, Helvetica, Tahoma, Arial, Geneva, Georgia, Times New Roman",
 +            "font-family" : "sans-serif",
              "font-size" : 12
          }
@@ -204,13 +178,13 @@ index 6c36fa76..5504ce1d 100644
          "TABLEBORDER" : {
              "text-color" : "#d33682",
 diff --git a/src/data/extra/themes/native/web.css b/src/data/extra/themes/native/web.css
-index 58e7efb6..c9ca511e 100644
+index b4bdce44..c9ca511e 100644
 --- a/src/data/extra/themes/native/web.css
 +++ b/src/data/extra/themes/native/web.css
 @@ -1,6 +1,6 @@
  body {
      margin: 0 auto;
--    font-family: -apple-system, "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", "冬青黑体", "YaHei Consolas Hybrid", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", Dengxian, "等线体", STXihei, "华文细黑", "Liberation Sans", "Droid Sans", NSimSun, "新宋体", SimSun, "宋体", "Apple Color Emoji", "Segoe UI Emoji";
+-    font-family: "YaHei Consolas Hybrid", "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", "冬青黑体", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", Dengxian, "等线体", STXihei, "华文细黑", "Liberation Sans", "Droid Sans", NSimSun, "新宋体", SimSun, "宋体", "Apple Color Emoji", "Segoe UI Emoji";
 +    font-family: sans-serif;
      color: #222222;
      line-height: 1.5;
@@ -219,7 +193,7 @@ index 58e7efb6..c9ca511e 100644
  }
  
  code {
--    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, "Andale Mono", Monospace, "Courier New";
 +    font-family: monospace;
      color: #8E24AA;
      word-break: break-word;
@@ -228,26 +202,13 @@ index 58e7efb6..c9ca511e 100644
      color: #222222;
      background-color: #E0E0E0;
      line-height: 1.5;
--    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, "Andale Mono", Monospace, "Courier New";
 +    font-family: monospace;
      white-space: pre;
      -moz-tab-size: 4;
      -o-tab-size: 4;
-diff --git a/src/data/extra/themes/pure/highlight.css b/src/data/extra/themes/pure/highlight.css
-index 4d980eb1..daf4b30e 100644
---- a/src/data/extra/themes/pure/highlight.css
-+++ b/src/data/extra/themes/pure/highlight.css
-@@ -10,7 +10,7 @@ code[class*="language-"],
- pre[class*="language-"] {
-     color: black;
-     background: none;
--    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-+    font-family: monospace;
-     font-size: 1em;
-     text-align: left;
-     white-space: pre;
 diff --git a/src/data/extra/themes/pure/interface.qss b/src/data/extra/themes/pure/interface.qss
-index ace2a3e7..38d779ee 100644
+index 3e827831..a2411ab8 100644
 --- a/src/data/extra/themes/pure/interface.qss
 +++ b/src/data/extra/themes/pure/interface.qss
 @@ -11,7 +11,7 @@
@@ -255,12 +216,12 @@ index ace2a3e7..38d779ee 100644
      color: @widgets#qwidget#fg;
      background-color: @widgets#qwidget#bg;
 -    font-family: "冬青黑体", "YaHei Consolas Hybrid", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", "Dengxian", "等线体", "STXihei", "华文细黑", "Liberation Sans", "Droid Sans", "NSimSun", "新宋体", "SimSun", "宋体", "Helvetica", "sans-serif", "Tahoma", "Arial", "Verdana", "Geneva", "Georgia", "Times New Roman";
-+    font-family: "sans-serif";
++    font-family: sans-serif;
  }
  
  QWidget[DialogCentralWidget="true"] {
 diff --git a/src/data/extra/themes/pure/text-editor.theme b/src/data/extra/themes/pure/text-editor.theme
-index 882282dd..e0463468 100644
+index 405ec3bd..e0463468 100644
 --- a/src/data/extra/themes/pure/text-editor.theme
 +++ b/src/data/extra/themes/pure/text-editor.theme
 @@ -7,7 +7,7 @@
@@ -276,7 +237,7 @@ index 882282dd..e0463468 100644
      "markdown-editor-styles" : {
          "Text" : {
              "//comment" : "Support a list of fonts separated by ,",
--            "font-family" : "冬青黑体, YaHei Consolas Hybrid, Microsoft YaHei, 微软雅黑, Microsoft YaHei UI, WenQuanYi Micro Hei, 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, Liberation Sans, Droid Sans, NSimSun, 新宋体, SimSun, 宋体, Verdana, Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Times New Roman",
+-            "font-family" : "YaHei Consolas Hybrid, 冬青黑体, Microsoft YaHei, 微软雅黑, Microsoft YaHei UI, WenQuanYi Micro Hei, 文泉驿雅黑, Dengxian, 等线体, STXihei, 华文细黑, Liberation Sans, Droid Sans, NSimSun, 新宋体, SimSun, 宋体, Verdana, Helvetica, Tahoma, Arial, Geneva, Georgia, Times New Roman",
 +            "font-family" : "sans-serif",
              "font-size" : 12,
              "text-color" : "#222222",
@@ -328,13 +289,13 @@ index 882282dd..e0463468 100644
          "TABLEBORDER" : {
              "text-color" : "#d33682",
 diff --git a/src/data/extra/themes/pure/web.css b/src/data/extra/themes/pure/web.css
-index c1e144cf..332be3bc 100644
+index 5b36368b..332be3bc 100644
 --- a/src/data/extra/themes/pure/web.css
 +++ b/src/data/extra/themes/pure/web.css
 @@ -1,6 +1,6 @@
  body {
      margin: 0 auto;
--    font-family: -apple-system, "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, sans-serif, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", "冬青黑体", "YaHei Consolas Hybrid", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", Dengxian, "等线体", STXihei, "华文细黑", "Liberation Sans", "Droid Sans", NSimSun, "新宋体", SimSun, "宋体", "Apple Color Emoji", "Segoe UI Emoji";
+-    font-family: "YaHei Consolas Hybrid", "Noto Sans", "Helvetica Neue", "Segoe UI", Helvetica, Tahoma, Arial, Geneva, Georgia, Palatino, "Times New Roman", "冬青黑体", "Microsoft YaHei", "微软雅黑", "Microsoft YaHei UI", "WenQuanYi Micro Hei", "文泉驿雅黑", Dengxian, "等线体", STXihei, "华文细黑", "Liberation Sans", "Droid Sans", NSimSun, "新宋体", SimSun, "宋体", "Apple Color Emoji", "Segoe UI Emoji";
 +    font-family: sans-serif;
      color: #222222;
      line-height: 1.5;
@@ -343,7 +304,7 @@ index c1e144cf..332be3bc 100644
  }
  
  code {
--    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, "Andale Mono", Monospace, "Courier New";
 +    font-family: monospace;
      color: #8e24aa;
      word-break: break-word;
@@ -352,7 +313,7 @@ index c1e144cf..332be3bc 100644
      color: #222222;
      background-color: #e0e0e0;
      line-height: 1.5;
--    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, Monospace, Courier;
+-    font-family: "YaHei Consolas Hybrid", Consolas, Monaco, "Andale Mono", Monospace, "Courier New";
 +    font-family: monospace;
      white-space: pre;
      -moz-tab-size: 4;
