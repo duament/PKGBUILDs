@@ -9,7 +9,7 @@ User=http
 DynamicUser=yes
 RuntimeDirectory=%p
 StateDirectory=%p
-ExecStart=/usr/bin/filebrowser --database %S/%p/%i.db --socket %t/%p/%i --socket-perm 0600
+ExecStart=/usr/bin/filebrowser --database %S/%p/%i.db --socket %t/%p/%i --socket-perm 0660
 
 ReadWritePaths=%S/%p
 CapabilityBoundingSet=
