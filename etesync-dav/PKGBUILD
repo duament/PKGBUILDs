@@ -4,7 +4,7 @@
 
 pkgname=etesync-dav
 pkgver=0.30.8
-pkgrel=1
+pkgrel=2
 pkgdesc="A CalDAV and CardDAV adapter for EteSync"
 arch=('any')
 url="https://github.com/etesync/etesync-dav"
