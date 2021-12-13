@@ -2,7 +2,7 @@
 
 pkgname=python-drf-nested-routers
 _name=${pkgname#python-}
-pkgver=0.92.5
+pkgver=0.93.3
 pkgrel=1
 pkgdesc="Nested Routers for Django Rest Framework "
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python-django' 'python-django-rest-framework')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest' 'python-pytest-django' 'python-pytest-cov' 'python-ipdb')
 source=("$_name-$pkgver.tar.gz::https://github.com/alanjds/$_name/archive/v$pkgver.tar.gz")
-sha256sums=('92c4dc6ab93a2586d2159bc15e2b2f7e547b2f6b40277b7feecc235e71944f45')
+sha256sums=('cb5a0600661c40d8a97998038008caefe4c1325b963f685486d45342b37cb287')
 
 build() {
     cd $_name-$pkgver
