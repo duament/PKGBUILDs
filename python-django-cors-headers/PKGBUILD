@@ -2,7 +2,7 @@
 
 pkgname=python-django-cors-headers
 _name=${pkgname#python-}
-pkgver=3.7.0
+pkgver=3.10.1
 pkgrel=1
 pkgdesc="Django app for handling the server headers required for Cross-Origin Resource Sharing (CORS)"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python-django')
 makedepends=('python-setuptools')
 checkdepends=('python-pytest' 'python-pytest-django' 'python-pytest-randomly')
 source=("$_name-$pkgver.tar.gz::https://github.com/adamchainz/$_name/archive/$pkgver.tar.gz")
-sha256sums=('9780dd071d5ce37113d2f030a08c02ef9580e78c8eef54b1aeac76adfcc8f766')
+sha256sums=('f44b3aa1351e6fb7d25abfa078f2f411364d4eb706d2067f49391e2d67b6bf6b')
 
 build() {
     cd $_name-$pkgver
