@@ -1,8 +1,8 @@
 # Maintainer: Duama <admin@duama.top>
 
 pkgname=vim-youcompleteme-git
-pkgver=r2860.ab28bd7a.r3018.f7ba6e79
-pkgrel=2
+pkgver=r2863.3c5a0630.r3018.f7ba6e79
+pkgrel=1
 pkgdesc="A code-completion engine for Vim"
 arch=('x86_64')
 url='https://ycm-core.github.io/YouCompleteMe/'
