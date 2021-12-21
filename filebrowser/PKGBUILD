@@ -1,8 +1,8 @@
 # Maintainer: Duama <admin@duama.top>
 
 pkgname=filebrowser
-pkgver=2.19.0
-pkgrel=2
+pkgver=2.20.0
+pkgrel=1
 pkgdesc='Web File Browser'
 arch=(x86_64)
 url='https://github.com/filebrowser/filebrowser'
@@ -11,7 +11,7 @@ depends=(glibc)
 makedepends=(npm go go.rice)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz"
         "$pkgname@.service")
-sha256sums=('f57ff24b52565b544a8d0e297f384adfb52884f76fccadda0d31e56434116d9a'
+sha256sums=('ad55e74d3dbd9350405c8697c88d70d4dc52a0e1beb7d921ac5adad2328127f4'
             '7ea9a6d8e54e06484956cec4aa84b57d076c4e1fcad16cb9f6e8e7d8597ad64c')
 
 prepare() {
