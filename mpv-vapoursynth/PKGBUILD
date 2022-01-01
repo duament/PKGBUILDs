@@ -7,7 +7,7 @@ pkgname=mpv-vapoursynth
 epoch=1
 _tag='79b4060a573e83ae42d51d995bca1ccf80690997' # git rev-parse v${pkgver}
 pkgver=0.34.0
-pkgrel=1
+pkgrel=4
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 # We link against libraries that are licensed GPLv3 explicitly, so our
@@ -27,13 +27,22 @@ depends=('alsa-lib' 'libasound.so' 'desktop-file-utils' 'ffmpeg' 'libavcodec.so'
          'zlib' 'vapoursynth')
 makedepends=('git' 'python-docutils' 'ladspa' 'wayland-protocols'
              'ffnvcodec-headers' 'vulkan-headers' 'waf')
-optdepends=('youtube-dl: for video-sharing websites playback')
+optdepends=('yt-dlp: for video-sharing websites playback'
+            'youtube-dl: for video-sharing websites playback')
 provides=('mpv' 'libmpv.so')
 conflicts=('mpv')
 options=('!emptydirs')
 validpgpkeys=('145077D82501AA20152CACCE8D769208D5E31419') # sfan5 <sfan5@live.de>
 source=("git+https://github.com/mpv-player/mpv.git#tag=${_tag}?signed")
 sha256sums=('SKIP')
+
+prepare() {
+  cd ${pkgname}
+
+  git cherry-pick -n \
+    '79bfcc672343ddbc348e040ad899d61a0bafc050' \
+    'fc94c8c365ebeb038af6052bf4ea0506c1220559'
+}
 
 build() {
   cd ${_pkgname}
