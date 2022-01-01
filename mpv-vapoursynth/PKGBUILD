@@ -37,7 +37,7 @@ source=("git+https://github.com/mpv-player/mpv.git#tag=${_tag}?signed")
 sha256sums=('SKIP')
 
 prepare() {
-  cd ${pkgname}
+  cd ${_pkgname}
 
   git cherry-pick -n \
     '79bfcc672343ddbc348e040ad899d61a0bafc050' \
