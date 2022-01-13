@@ -2,10 +2,10 @@
 # Contributor: Fabio 'Lolix' Loli <fabio.loli@disroot.org> -> https://github.com/FabioLolix
 # Contributor: erk <v at erk dot io>
 
-_vtextedit=08b440d3045c944a8a6d7f8945a197ff56dcec82
+_vtextedit=064a434202096f703cbed9162742bbc55911f974
 _sonnet=403863fc499c58677c9b0b25f820d0baa9186a07
 pkgname=vnote
-pkgver=3.10.1
+pkgver=3.11.0
 pkgrel=1
 pkgdesc="A pleasant note-taking platform."
 arch=(x86_64 i686 arm armv6h armv7h aarch64)
@@ -22,12 +22,12 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/vnotex/$pkgname/archive/ref
         "vtextedit-font.patch"
         "vtextedit-use-system-libs.patch"
         "sonnet-use-system-libs.patch")
-sha256sums=('b89719b7650f98824b9266ba11949aa5eacb005c379e2eab566d1f7ca62d064e'
-            'c70553a99fd9bbe5b8b7e5c724a744f49493166ffbda668547c88109c539a9bb'
+sha256sums=('e8b03e57bf6516807868094d62d03b1fd3b3d9a0ea9eddf559734912eb5a62f5'
+            '92c5d2986de6a2583b151633e803c9ee05f9946b7de2743983e43da961770420'
             '1f4bd73c17854611e11f73c3ed4206dbc1768b0343f1101bd1449573b04b64d4'
             '9d94cb20dc61e0463acb10951e1b1828a9c516574b7482aa0db0a4ab4ae1998c'
             '40c9cf04d60de6646d0c229e082dc3fa7280d4307c35555844d0da1a169647ae'
-            'b6aa1fa31de0442888c1c089e2189ebb814f3d4aa23b7e815ea35d3569c018c1'
+            '22bb1b33bbadcd725bd2bada30700fadace01ef0333cb1d6bd27b4315e672b48'
             '2bfa47d4008751ba55326141d0c44924596fa0f78bdd6cec4e3809b2812c4ed2'
             '42c710d372dd14c5bbf9d0640284e689510a39d48e14829da68ac4687b91838d'
             '81be51efa75e73280db45e4575ceedc3ddc8c1cd5caab4ebc179c61176ee6e7e')
