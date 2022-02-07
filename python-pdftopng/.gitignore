@@ -2,3 +2,4 @@
 !/.gitignore
 !/PKGBUILD
 !/setOverprintPreview.patch
+!/c++17.patch
