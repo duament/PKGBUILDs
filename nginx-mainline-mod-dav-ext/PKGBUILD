@@ -3,7 +3,7 @@
 pkgname=nginx-mainline-mod-dav-ext
 _modname=nginx-dav-ext-module
 pkgver=3.0.0
-pkgrel=7
+pkgrel=8
 pkgdesc="nginx WebDAV PROPFIND,OPTIONS,LOCK,UNLOCK support"
 arch=('x86_64')
 url="https://github.com/arut/nginx-dav-ext-module"
