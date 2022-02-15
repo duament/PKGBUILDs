@@ -1,0 +1,31 @@
+name: Build pam_ssh_agent_auth
+on:
+  push:
+    paths:
+      - 'pam_ssh_agent_auth/**'
+      - '.github/workflows/pam_ssh_agent_auth.yml'
+  workflow_dispatch:
+
+jobs:
+  job:
+    name: Build pam_ssh_agent_auth
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - run: |
+          pacman -Syu --noconfirm --noprogressbar --needed git
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Build Arch Linux packages
+        id: build
+        uses: duament/build-arch-package@master
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          DIR: $GITHUB_WORKSPACE/pam_ssh_agent_auth
