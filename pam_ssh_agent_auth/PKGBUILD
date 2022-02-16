@@ -1,36 +1,87 @@
-# Maintainer: Zach Callear <zach@callear.org>
+# Maintainer: Duama <i@rvf6.com>
+# Contributor: Zach Callear <zach@callear.org>
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 # Contributor: Anders Bergh <anders1@gmail.com>
 # Contributor: Chris <alostengineer at narmos dot org>
+
 pkgname=pam_ssh_agent_auth
-pkgver=0.10.4
-pkgrel=2
+pam_ssh_agent_ver=0.10.4
+openssh_ver=8.8p1
+pkgver=$pam_ssh_agent_ver+$openssh_ver
+pkgrel=3
 pkgdesc="PAM module which permits authentication via the keyring in a forwarded ssh-agent."
 arch=('i686' 'x86_64' 'armv6h' 'armv7h' 'aarch64')
 url="https://github.com/jbeverly/pam_ssh_agent_auth"
 license=('custom:OpenSSL')
-source=(git://github.com/jbeverly/pam_ssh_agent_auth.git#tag=$pkgname-$pkgver)
-md5sums=('SKIP')
-makedepends=('git')
+source=(https://github.com/jbeverly/pam_ssh_agent_auth/archive/$pkgname-$pam_ssh_agent_ver.tar.gz
+        https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-$openssh_ver.tar.gz
+        rmheaders
+        00-build.patch
+        01-seteuid.patch
+        02-visibility.patch
+        03-compat.patch
+        04-agent_structure.patch
+        05-dereference.patch)
+sha256sums=('9d440de6627940c09eadc342cc7d8bc9823654fd1a2be11c4f5820dd073054e0'
+            '4590890ea9bb9ace4f71ae331785a3a5823232435161960ed5fc86588f331fe9'
+            'ae8da327442433aabb755501c9fc5880a139a90979c99248f7e245132408cbb7'
+            '71771bd72ed42d4dadb9ab078330f098ea67cf524555599761808f74026f918b'
+            'ea815c63e61c7a2cbfa3de9b4cd74fa6792a704dbde87a342cad79e834c98a6a'
+            'db52b366d3cad39662db1bc68e7fed710eef8c9fb899b7839e62550c7378d3e1'
+            '71d6e3f21a1e6ec20a022ec36cb3a1b0e58a6ac7b822a7dde5d9e2ea6525aa71'
+            '21a4755585b5464c447f50c91d07953d18ecf99e7fe77432a761a8f6afd1af40'
+            '81e44891e6a48a9fe114cc0fe26b877e52c0292c86bb7c0a14355d23e4e6fdc4')
+makedepends=('krb5' 'libedit' 'ldns' 'libxcrypt' 'libcrypt.so' 'zlib' 'pam' 'linux-headers' 'libfido2')
 depends=('openssl')
-optdepends=('openssh: standard ssh-agent'
-            'gnupg: gpg ssh-agent')
 
 prepare() {
-  cd "$srcdir/$pkgname/ed25519-donna"
-  git submodule init
-  git submodule update
+  cd openssh-$openssh_ver
+  autoreconf
+  cp -r ../$pkgname-$pkgname-$pam_ssh_agent_ver .
+  cd $pkgname-$pkgname-$pam_ssh_agent_ver
+
+  local src
+  for src in "${source[@]}"; do
+    src="${src%%::*}"
+    src="${src##*/}"
+    [[ $src = *.patch ]] || continue
+    echo "Applying patch $src..."
+    patch -Np2 < "../../$src"
+  done
+
+  rm -f $(cat "$srcdir"/rmheaders)
 }
 
 build() {
-  cd "$srcdir/$pkgname"
+  cd openssh-$openssh_ver
+  ./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --libexecdir=/usr/lib/ssh \
+    --sysconfdir=/etc/ssh \
+    --disable-strip \
+    --with-ldns \
+    --with-libedit \
+    --with-security-key-builtin \
+    --with-ssl-engine \
+    --with-pam \
+    --with-privsep-user=nobody \
+    --with-kerberos5=/usr \
+    --with-xauth=/usr/bin/xauth \
+    --with-md5-passwords \
+    --with-pid-dir=/run \
+    --with-default-path='/usr/local/sbin:/usr/local/bin:/usr/bin' \
+    --with-pie=no
+  make
+
+  cd $pkgname-$pkgname-$pam_ssh_agent_ver
   ./configure --prefix=/usr --with-mantype=man --libexecdir=/usr/lib/security --without-openssl-header-check
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname"
-  make DESTDIR="$pkgdir/" install
+  cd openssh-$openssh_ver/$pkgname-$pkgname-$pam_ssh_agent_ver
+  make DESTDIR="$pkgdir"/ install
 
-  install -Dm644 LICENSE.OpenSSL "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 LICENSE.OpenSSL "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }

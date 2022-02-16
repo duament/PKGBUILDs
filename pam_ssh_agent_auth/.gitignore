@@ -1,3 +1,10 @@
 /*
 !/.gitignore
 !/PKGBUILD
+!/rmheaders
+!/00-build.patch
+!/01-seteuid.patch
+!/02-visibility.patch
+!/03-compat.patch
+!/04-agent_structure.patch
+!/05-dereference.patch
