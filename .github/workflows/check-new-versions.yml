@@ -16,12 +16,11 @@ jobs:
     steps:
       - run: |
           pacman -Syu --noconfirm --noprogressbar --needed base-devel git sudo pacman-contrib
-          git config --global user.name duament
-          git config --global user.email 30264485+duament@users.noreply.github.com
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PAT }}
+      - uses: actions/checkout@v3
       - run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           useradd -m user
           chown -R user .
       - run: |
