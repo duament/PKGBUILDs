@@ -2,3 +2,5 @@
 !/.gitignore
 !/PKGBUILD
 !/etebase-server.service
+!/fix-providing_args.patch
+!/fix-django.urls.path.patch

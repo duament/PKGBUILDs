@@ -1,0 +1,26 @@
+From c6b1b855dfc514c31196a4155feba66e91788053 Mon Sep 17 00:00:00 2001
+From: Xiretza <xiretza@xiretza.xyz>
+Date: Mon, 9 May 2022 16:19:57 +0200
+Subject: [PATCH] fix: remove deprecated argument "providing_args" from
+ Signal() (#138)
+
+From the source:
+
+> The providing_args argument is deprecated. As it is purely
+> documentational, it has no replacement. If you rely on this
+> argument as documentation, you can move the text to a code
+> comment or docstring.
+---
+ django_etebase/signals.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/django_etebase/signals.py b/django_etebase/signals.py
+index 0fc3e80..53eb43d 100644
+--- a/django_etebase/signals.py
++++ b/django_etebase/signals.py
+@@ -1,3 +1,4 @@
+ from django.dispatch import Signal
+ 
+-user_signed_up = Signal(providing_args=["request", "user"])
++# Provides arguments "request" and "user"
++user_signed_up = Signal()

@@ -5,7 +5,7 @@
 pkgname=etebase-server
 _name=server
 pkgver=0.8.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A self-hostable Etebase (EteSync 2.0) server"
 arch=(any)
 depends=('python-aiofiles'
@@ -21,12 +21,18 @@ url="https://github.com/etesync/server"
 license=('AGPL3')
 backup=('etc/etebase-server/etebase-server.ini')
 source=("$_name-$pkgver.tar.gz::https://github.com/etesync/$_name/archive/v$pkgver.tar.gz"
+        "fix-providing_args.patch"
+        "fix-django.urls.path.patch"
         "$pkgname.service")
 sha256sums=('53680e044c976b862f7dacde72402f86bbff3f7a7455ef517f8ad591a42e0944'
+            '7029ffb58f67369ba33a9b5b1ef06907a82e5e03d6d941484acbe1e9702baac2'
+            '1c727d0846f397f4f6afdbe91364a11705f3b96b696c81deb1bac2d74adfa676'
             '7d0aa618fe764a36744479991e42a21194450c44f180f9082f103e40bcb9b405')
 
 prepare() {
     cd $_name-$pkgver
+    patch --forward --strip=1 --input="$srcdir"/fix-providing_args.patch
+    patch --forward --strip=1 --input="$srcdir"/fix-django.urls.path.patch
     sed -i "s@secret.txt@/var/lib/$pkgname/secret.txt@;s@db.sqlite3@/var/lib/$pkgname/db.sqlite3@" $pkgname.ini.example
 }
 

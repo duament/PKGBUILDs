@@ -1,0 +1,31 @@
+From e635e081c76182cd429eb3f83efbff43b0501812 Mon Sep 17 00:00:00 2001
+From: Xiretza <xiretza@xiretza.xyz>
+Date: Sun, 8 May 2022 15:16:54 +0200
+Subject: [PATCH] fix: use django.urls.path instead of deprecated
+ django.conf.urls.url
+
+---
+ etebase_server/urls.py | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/etebase_server/urls.py b/etebase_server/urls.py
+index 7cf5a60..51b5258 100644
+--- a/etebase_server/urls.py
++++ b/etebase_server/urls.py
+@@ -1,7 +1,6 @@
+ import os
+ 
+ from django.conf import settings
+-from django.conf.urls import url
+ from django.contrib import admin
+ from django.urls import path, re_path
+ from django.views.generic import TemplateView
+@@ -9,7 +8,7 @@
+ from django.contrib.staticfiles import finders
+ 
+ urlpatterns = [
+-    url(r"^admin/", admin.site.urls),
++    path("admin/", admin.site.urls),
+     path("", TemplateView.as_view(template_name="success.html")),
+ ]
+ 
