@@ -1,0 +1,29 @@
+name: Build ttf-lora-cyrillic
+on:
+  push:
+    paths:
+      - 'ttf-lora-cyrillic/**'
+      - '.github/workflows/ttf-lora-cyrillic.yml'
+  workflow_dispatch:
+
+jobs:
+  job:
+    name: Build ttf-lora-cyrillic
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux
+      options: --privileged
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup
+    steps:
+      - run: |
+          pacman -Syu --noconfirm --noprogressbar --needed git
+      - uses: actions/checkout@v3
+      - name: Build Arch Linux packages
+        id: build
+        uses: duament/build-arch-package@master
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          DIR: $GITHUB_WORKSPACE/ttf-lora-cyrillic

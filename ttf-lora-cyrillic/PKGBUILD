@@ -2,29 +2,25 @@
 # Contributor: Adrián Pérez de Castro <aperez@igalia.com>
 
 pkgname=ttf-lora-cyrillic
-pkgver=2.210
+pkgver=3.003
 pkgrel=1
 arch=(any)
 license=(custom:OFL)
-url=http://www.cyreal.org/2012/07/lora/
-source=("https://github.com/cyrealtype/Lora-Cyrillic/releases/download/v${pkgver}/Lora-Static.zip"
-        "https://github.com/cyrealtype/Lora-Cyrillic/raw/v${pkgver}/OFL.txt"
+url=http://www.cyreal.org/fonts/lora/
+source=("https://github.com/cyrealtype/Lora-Cyrillic/releases/download/v${pkgver}/Lora-v${pkgver}.zip"
         "47-lora.conf"
         "67-lora.conf")
-sha512sums=('19c2e1c0d3dfac71df8347a115099ee812097155e8ea034b5ba9e079e0b36d156a6729723aaf7ff192f7269054c2e0da5dbd3447abf14fd1be06580130a358e6'
-            '8fb63945341a02244ab3dc320f754af943dada136a8f0e93b1f5d240cec729b772824320b779df994bc2036fed7e3e8c8ff070ec008a3fd93133b3ecb6ba7660'
+sha512sums=('ca15a5f5f6b9972af9215729786c2c563740e5e3e39461a83275ec292743b0e9ac570166c6a9fb2f47b9cc085cf8836ebcfa40d646398573f10f877695e9d8ea'
             '0e484839e6629358b418b579044f0be76d108e8a7ac5f06fe3d9bc0a3db14bafb15c4468462dbf5c0ec13a4115e36f150d1964795ee50d37bee14df6b797bdd1'
             'f7a2928b92e6a926f012d8e7909dd95e8258d4d8577187f5b2c0931649825f35a3e0213c36ff30926c1fd57acb39470f2e4303c6856eb68aa570c2db73232f56')
 
 package () {
-  install -dm755 $pkgdir/usr/share/fonts/ttf-lora-cyrillic
-  install -m644 *.ttf $pkgdir/usr/share/fonts/ttf-lora-cyrillic
+  install -Dm644 ttf/*.ttf -t $pkgdir/usr/share/fonts/ttf-lora-cyrillic/
 
-  install -dm755 $pkgdir/etc/fonts/conf.avail
-  install -dm755 $pkgdir/etc/fonts/conf.d
-  install -m644 47-lora.conf $pkgdir/etc/fonts/conf.avail/
-  install -m644 67-lora.conf $pkgdir/etc/fonts/conf.avail/
-  ln -rs $pkgdir/etc/fonts/conf.avail/* $pkgdir/etc/fonts/conf.d
+  install -Dm644 47-lora.conf -t $pkgdir/etc/fonts/conf.avail/
+  install -Dm644 67-lora.conf -t $pkgdir/etc/fonts/conf.avail/
+  install -dm755 $pkgdir/etc/fonts/conf.d/
+  ln -rs $pkgdir/etc/fonts/conf.avail/* $pkgdir/etc/fonts/conf.d/
 
   install -Dm644 OFL.txt $pkgdir/usr/share/licenses/$pkgname/LICENSE.txt
 }
