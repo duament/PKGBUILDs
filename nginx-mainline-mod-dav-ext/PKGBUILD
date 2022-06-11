@@ -1,4 +1,4 @@
-# Maintainer: Duama <admin@duama.top>
+# Maintainer: Rvfg <i@rvf6.com>
 
 pkgname=nginx-mainline-mod-dav-ext
 _modname=nginx-dav-ext-module
@@ -28,6 +28,6 @@ package() {
 
     cd nginx/objs
     for mod in ngx_*.so; do
-	install -Dm755 $mod "$pkgdir"/usr/lib/nginx/modules/$mod
+    install -Dm755 $mod "$pkgdir"/usr/lib/nginx/modules/$mod
     done
 }
