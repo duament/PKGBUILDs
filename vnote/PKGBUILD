@@ -2,10 +2,11 @@
 # Contributor: Fabio 'Lolix' Loli <fabio.loli@disroot.org> -> https://github.com/FabioLolix
 # Contributor: erk <v at erk dot io>
 
-_vtextedit=064a434202096f703cbed9162742bbc55911f974
+_vtextedit=a6a9a31cf64b4a159d360f0ef6ed6cf296f8eca8
 _sonnet=403863fc499c58677c9b0b25f820d0baa9186a07
+_qhotkey=18ac011008d3ae55abc19233ba94fad1ea9801d8
 pkgname=vnote
-pkgver=3.11.0
+pkgver=3.13.0
 pkgrel=1
 pkgdesc="A pleasant note-taking platform."
 arch=(x86_64 i686 arm armv6h armv7h aarch64)
@@ -16,20 +17,18 @@ makedepends=()
 source=("$pkgname-$pkgver.tar.gz::https://github.com/vnotex/$pkgname/archive/refs/tags/v$pkgver.tar.gz"
         "vtextedit-$_vtextedit.tar.gz::https://github.com/vnotex/vtextedit/archive/$_vtextedit.tar.gz"
         "sonnet-$_sonnet.tar.gz::https://github.com/vnotex/sonnet/archive/$_sonnet.tar.gz"
+        "QHotkey-$_qhotkey.tar.gz::https://github.com/vnotex/QHotkey/archive/$_qhotkey.tar.gz"
         "rcc-dir.patch"
-        "vnote-font.patch"
         "vnote-use-system-libs.patch"
-        "vtextedit-font.patch"
         "vtextedit-use-system-libs.patch"
         "sonnet-use-system-libs.patch")
-sha256sums=('e8b03e57bf6516807868094d62d03b1fd3b3d9a0ea9eddf559734912eb5a62f5'
-            '92c5d2986de6a2583b151633e803c9ee05f9946b7de2743983e43da961770420'
+sha256sums=('d186da351f00ca707e25601c94a73fe90be6b4f92d0678a001a36187d78637f0'
+            '50cc1ca40c153fa20436441ea2a6c58a7f70105710f4c10972a04a474f6d96da'
             '1f4bd73c17854611e11f73c3ed4206dbc1768b0343f1101bd1449573b04b64d4'
+            '4a7800b19fd30195e56b8e7dd53bbf8918fecf2cd84a6ae35aa3e231f124e73b'
             '9d94cb20dc61e0463acb10951e1b1828a9c516574b7482aa0db0a4ab4ae1998c'
-            '40c9cf04d60de6646d0c229e082dc3fa7280d4307c35555844d0da1a169647ae'
             '22bb1b33bbadcd725bd2bada30700fadace01ef0333cb1d6bd27b4315e672b48'
-            '2bfa47d4008751ba55326141d0c44924596fa0f78bdd6cec4e3809b2812c4ed2'
-            '42c710d372dd14c5bbf9d0640284e689510a39d48e14829da68ac4687b91838d'
+            '8830069d7b11f2713c40f09fc4d3aeeda5211985c6b2ac2662127cbb207ea836'
             '81be51efa75e73280db45e4575ceedc3ddc8c1cd5caab4ebc179c61176ee6e7e')
 
 prepare() {
@@ -37,10 +36,13 @@ prepare() {
 
     rmdir libs/vtextedit
     ln -s "$srcdir"/vtextedit-$_vtextedit libs/vtextedit
+    ln -s "$srcdir"/QHotkey-$_qhotkey libs/QHotkey
 
     patch --forward --strip=1 --input="$srcdir"/rcc-dir.patch
     patch --forward --strip=1 --input="$srcdir"/vnote-use-system-libs.patch
-    patch --forward --strip=1 --input="$srcdir"/vnote-font.patch
+    sed -i -E 's/^( *font-family *: *)"冬青黑体".*;$/\1"sans-serif";/' src/data/extra/themes/*/*.qss
+    sed -i -E 's/^( *"font-family" *: *)"YaHei Consolas Hybrid.*"/\1"monospace"/' src/data/extra/themes/*/*.theme
+    sed -i -E 's/^( *font-family *: *)"YaHei Consolas Hybrid".*;$/\1monospace;/' src/data/extra/themes/*/*.css
 
     cd ../vtextedit-$_vtextedit
 
@@ -48,7 +50,12 @@ prepare() {
     ln -s "$srcdir"/sonnet-$_sonnet src/libs/sonnet
 
     patch --forward --strip=1 --input="$srcdir"/vtextedit-use-system-libs.patch
-    patch --forward --strip=1 --input="$srcdir"/vtextedit-font.patch
+    sed -i -E 's/^( *"font-family" *: *)"YaHei Consolas Hybrid.*"/\1"monospace"/' src/editor/data/themes/*.theme
+    sed -i -E 's/^( *"font-family" *: *)"Hiragino Sans GB.*"/\1"sans-serif"/' src/editor/data/themes/*.theme
+    for include in AbstractHighlighter Definition FoldingRegion Format Repository State
+    do
+        grep -Rl "#include <$include>" . | xargs sed -i "s/#include <$include>/#include <KSyntaxHighlighting\/$include>/"
+    done
 
     cd ../sonnet-$_sonnet
 

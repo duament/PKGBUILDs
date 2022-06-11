@@ -2,8 +2,6 @@
 !/.gitignore
 !/PKGBUILD
 !/rcc-dir.patch
-!/vnote-font.patch
 !/vnote-use-system-libs.patch
-!/vtextedit-font.patch
 !/vtextedit-use-system-libs.patch
 !/sonnet-use-system-libs.patch

@@ -40,11 +40,35 @@ index 0cbc14b..09875f6 100644
  include($$LIBS_FOLDER/katevi/katevi_export.pri)
  include($$LIBS_FOLDER/peg-markdown-highlight/peg-markdown-highlight_export.pri)
  include($$LIBS_FOLDER/sonnet/src/core/core_export.pri)
+diff --git a/src/editor/markdowneditor/ksyntaxcodeblockhighlighter.cpp b/src/editor/markdowneditor/ksyntaxcodeblockhighlighter.cpp
+index f635e4a..10dfff6 100644
+--- a/src/editor/markdowneditor/ksyntaxcodeblockhighlighter.cpp
++++ b/src/editor/markdowneditor/ksyntaxcodeblockhighlighter.cpp
+@@ -38,19 +38,6 @@ KSyntaxCodeBlockHighlighter::KSyntaxCodeBlockHighlighter(const QString &p_theme,
+     m_syntaxHighlighter = new KSyntaxHighlighterWrapper(formatFunctor,
+                                                         foldingFunctor,
+                                                         this);
+-
+-    KSyntaxHighlighting::Theme th;
+-    if (!p_theme.isEmpty()) {
+-        if (Utils::isFilePath(p_theme)) {
+-            th = KSyntaxHighlighterWrapper::repository()->themeFromFile(p_theme);
+-        } else {
+-            th = KSyntaxHighlighterWrapper::repository()->theme(p_theme);
+-        }
+-    }
+-    if (!th.isValid()) {
+-        th = KSyntaxHighlighterWrapper::repository()->defaultTheme();
+-    }
+-    m_syntaxHighlighter->setTheme(th);
+ }
+ 
+ void KSyntaxCodeBlockHighlighter::highlightInternal(int p_idx)
 diff --git a/src/editor/texteditor/syntaxhighlighter.cpp b/src/editor/texteditor/syntaxhighlighter.cpp
-index d761862..4ddfa11 100644
+index 50c66b6..1430b23 100644
 --- a/src/editor/texteditor/syntaxhighlighter.cpp
 +++ b/src/editor/texteditor/syntaxhighlighter.cpp
-@@ -35,21 +35,6 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *p_doc,
+@@ -36,21 +36,6 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *p_doc,
          qDebug() << "use definition" << def.name() << "to highlight for syntax" << p_syntax;
          setDefinition(def);
      }
@@ -52,7 +76,7 @@ index d761862..4ddfa11 100644
 -    KSyntaxHighlighting::Theme th;
 -    if (!p_theme.isEmpty()) {
 -        // Check if it is a file path.
--        if (p_theme.contains(QRegularExpression(QStringLiteral("[\\\\/]")))) {
+-        if (Utils::isFilePath(p_theme)) {
 -            th = repository()->themeFromFile(p_theme);
 -        } else {
 -            th = repository()->theme(p_theme);
