@@ -11,8 +11,6 @@ jobs:
     container:
       image: archlinux
       options: --privileged
-      volumes:
-        - /sys/fs/cgroup:/sys/fs/cgroup
     steps:
       - run: |
           pacman -Syu --noconfirm --noprogressbar --needed base-devel git sudo pacman-contrib
