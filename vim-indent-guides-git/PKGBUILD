@@ -1,7 +1,7 @@
 # Maintainer: Rvfg <i@rvf6.com>
 
 pkgname=vim-indent-guides-git
-pkgver=r176.c9d2473
+pkgver=r179.9a106c7
 pkgrel=1
 pkgdesc="A Vim plugin for visually displaying indent levels in code"
 arch=('any')
