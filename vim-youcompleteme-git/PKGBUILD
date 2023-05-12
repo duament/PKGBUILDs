@@ -1,7 +1,7 @@
 # Maintainer: Rvfg <i@rvf6.com>
 
 pkgname=vim-youcompleteme-git
-pkgver=r3090.78ba06ef.r3171.e1d867a3
+pkgver=r3090.78ba06ef.r3175.621efe89
 pkgrel=1
 pkgdesc="A code-completion engine for Vim"
 arch=('x86_64')
